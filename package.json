@@ -1,5 +1,5 @@
 {
-  "name": "doc-manager",
+  "name": "Learn.AI",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:doc-manager": "node dist/doc-manager/server/server.mjs",
+    "serve:ssr:Learn.AI": "node dist/Learn.AI/server/server.mjs",
     "format": "prettier --write \"src/**/*.{ts,html,css,scss,js,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,html,css,scss,js,json,md}\"",
     "prepare": "husky"
@@ -35,7 +35,12 @@
     "@angular/platform-server": "^20.1.0",
     "@angular/router": "^20.1.0",
     "@angular/ssr": "^20.1.5",
+    "@primeuix/themes": "^1.2.3",
+    "@vapi-ai/web": "^2.3.9",
+    "bootstrap": "^5.3.7",
     "express": "^5.1.0",
+    "primeicons": "^7.0.0",
+    "primeng": "^20.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

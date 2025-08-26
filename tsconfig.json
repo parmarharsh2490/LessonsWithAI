@@ -9,7 +9,6 @@
     "noUnusedParameters": true,
     "exactOptionalPropertyTypes": true,
     "noUncheckedIndexedAccess": true,
-    "noEmit": true,
     "useDefineForClassFields": true,
     "noImplicitThis": true,
     "forceConsistentCasingInFileNames": true,

@@ -1,0 +1,60 @@
+<div class="d-flex flex-column rounded-lg w-100">
+  <div class="d-flex justify-content-between align-items-center py-0 px-4">
+    <h3 class="fw-bold fs-3 text-primary">{{ pageHeader() }}</h3>
+    @if (showAddButton()) {
+      <p-button label="Add" icon="pi pi-plus" />
+    }
+  </div>
+  <div class="p-4">
+    <p-table
+      [value]="dataList()"
+      [paginator]="true"
+      [rows]="pageSize() || 10"
+      [totalRecords]="totalRecords() || 0"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [scrollable]="true"
+      scrollHeight="600px"
+      [tableStyle]="{ width: '100%' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          @for (header of headerList(); track header) {
+            <th>{{ header.label }}</th>
+          }
+          @if (showEdit()) {
+            <th>Edit</th>
+          }
+          @if (showDelete()) {
+            <th>Delete</th>
+          }
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-data>
+        <tr>
+          @for (header of headerList(); track header) {
+            <td>{{ data[header.key] }}</td>
+          }
+          @if (showEdit()) {
+            <td
+              (click)="handleEdit(data)"
+              class="cursor-pointer"
+              style="width: 50px; text-align: center"
+            >
+              <i class="pi pi-pencil"></i>
+            </td>
+          }
+          @if (showDelete()) {
+            <td
+              (click)="handleDelete(data)"
+              class="cursor-pointer"
+              style="width: 50px; text-align: center"
+            >
+              <i class="pi pi-trash"></i>
+            </td>
+          }
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+<p-confirmdialog />

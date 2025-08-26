@@ -1,0 +1,11 @@
+<app-table-list
+  [pageHeader]="'Call History'"
+  [headerList]="headerList()"
+  [dataList]="dataList()"
+  [pageSize]="10"
+  [showEdit]="false"
+  [showDelete]="false"
+  [showAddButton]="false"
+  [totalRecords]="dataList().length"
+  (onPageChange)="onPageChange($event)"
+></app-table-list>

@@ -1,0 +1,8 @@
+<app-table-list
+  [pageHeader]="'Assistants'"
+  [headerList]="headerList()"
+  [dataList]="dataList()"
+  [pageSize]="10"
+  [totalRecords]="dataList().length"
+  (onPageChange)="onPageChange($event)"
+></app-table-list>
