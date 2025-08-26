@@ -1,3 +1,8 @@
-<div class="d-flex justify-content-center align-items-center">
-  <p-button label="Start Call" (click)="startCall()"></p-button>
+<div class="d-flex justify-content-center align-items-center w-100">
+  <p-button
+    label="Start Call"
+    (click)="startCall()"
+    class="full-width-btn"
+    [disabled]="!assistantId()"
+  ></p-button>
 </div>

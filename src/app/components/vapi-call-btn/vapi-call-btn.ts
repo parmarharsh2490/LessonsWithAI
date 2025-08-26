@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { VapiService } from '../../services/vapi.service';
 import { ButtonModule } from 'primeng/button';
 
@@ -9,8 +9,9 @@ import { ButtonModule } from 'primeng/button';
   styleUrl: './vapi-call-btn.scss',
 })
 export class VapiCallBtn {
+  assistantId = input<string | undefined>(undefined);
   constructor(private vapiService: VapiService) {}
   startCall() {
-    this.vapiService.vapi.start('c2eb75ed-069d-4e22-9219-64922608fe07');
+    this.vapiService.vapi.start(this.assistantId());
   }
 }
