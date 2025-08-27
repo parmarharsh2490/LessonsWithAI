@@ -9,8 +9,8 @@ import { Button } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
-import { UserProfileService } from './service/user-profile.service';
-import { MessageService } from '../../services/message.service';
+import { UserProfileService } from '../service/user-profile.service';
+import { MessageService } from '../../../services/message.service';
 @Component({
   selector: 'app-user-profile',
   imports: [

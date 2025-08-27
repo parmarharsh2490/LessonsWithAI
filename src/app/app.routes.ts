@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { Homepage } from './components/homepage/homepage';
-import { UserProfile } from './components/user-profile/user-profile';
-import { AssistantLists } from './components/assistant-lists/assistant-lists';
-import { CallHistoryLists } from './components/call-history-lists/call-history-lists';
-import { KnowledgebaseList } from './components/knowledgebase-list/knowledgebase-list';
+import { Homepage } from './modules/home/homepage/homepage';
+import { UserProfile } from './modules/user/user-profile/user-profile';
+import { AssistantLists } from './modules/assistant/assistant-lists/assistant-lists';
+import { CallHistoryLists } from './modules/call/call-history-lists/call-history-lists';
+import { KnowledgebaseList } from './modules/knowledgebase/knowledgebase-list/knowledgebase-list';
 export const routes: Routes = [
   {
     path: '',

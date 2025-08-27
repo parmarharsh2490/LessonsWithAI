@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
-import { TableList } from '../table-list/table-list';
+import { TableList } from '../../../components/table-list/table-list';
 import { PaginatorState } from 'primeng/paginator';
-import { IHeader } from '../table-list/model/table-list.modal';
+import { IHeader } from '../../../components/table-list/model/table-list.modal';
 
 @Component({
   selector: 'app-call-history-lists',

@@ -5,15 +5,22 @@ import { PaginatorModule, PaginatorState } from 'primeng/paginator';
 import { IHeader } from './model/table-list.modal';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-table-list',
-  imports: [TableModule, ButtonModule, PaginatorModule, ConfirmDialogModule],
+  imports: [
+    TableModule,
+    ButtonModule,
+    PaginatorModule,
+    ConfirmDialogModule,
+    DatePipe,
+  ],
   templateUrl: './table-list.html',
   styleUrl: './table-list.scss',
 })
 export class TableList {
   headerList = input<IHeader[]>([]);
-  dataList = input<any[]>([]);
+  dataList = input<any[] | null>(null);
   pageHeader = input<string>('');
   onPageChange = output<PaginatorState>();
   pageSize = input<number>();

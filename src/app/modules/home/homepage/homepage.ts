@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
-import { VapiCallBtn } from '../vapi-call-btn/vapi-call-btn';
+import { VapiCallBtn } from '../../../components/vapi-call-btn/vapi-call-btn';
 import { SelectModule } from 'primeng/select';
-import { AssistantService } from '../../services/assistant.service';
+import { AssistantService } from '../../../services/assistant.service';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
