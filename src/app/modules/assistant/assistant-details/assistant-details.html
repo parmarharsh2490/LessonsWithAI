@@ -1,0 +1,27 @@
+<p-dialog
+  header="Header"
+  [(visible)]="visible"
+  (onHide)="onHide()"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div class="card">
+    <p-tabs value="/dashboard">
+      <p-tablist>
+        @for (tab of tabs; track tab.route) {
+          <p-tab
+            [value]="tab.route"
+            [routerLink]="tab.route"
+            class="flex items-center !gap-2 text-inherit"
+          >
+            <i [class]="tab.icon"></i>
+            <span>{{ tab.label }}</span>
+          </p-tab>
+        }
+      </p-tablist>
+    </p-tabs>
+  </div>
+</p-dialog>
