@@ -28,12 +28,12 @@ export class TableList {
   showEdit = input<boolean>(true);
   showDelete = input<boolean>(true);
   showAddButton = input<boolean>(true);
+  onAdd = output<void>();
   onDelete = output<any>();
   onEdit = output<any>();
   constructor(private confirmationService: ConfirmationService) {}
 
   handleDelete(data: any) {
-    console.log('Delete', data);
     this.confirmationService.confirm({
       header: 'Delete',
       message: 'Are you sure you want to delete this item?',
@@ -51,5 +51,8 @@ export class TableList {
 
   handleEdit(data: any) {
     this.onEdit.emit(data);
+  }
+  handleAdd() {
+    this.onAdd.emit();
   }
 }

@@ -1,18 +1,11 @@
-import {
-  ApplicationRef,
-  Component,
-  ComponentRef,
-  createComponent,
-  EnvironmentInjector,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { Component, createComponent, OnInit, signal } from '@angular/core';
 import { TableList } from '../../../components/table-list/table-list';
 import { PaginatorState } from 'primeng/paginator';
 import { IHeader } from '../../../components/table-list/model/table-list.modal';
 import { AssistantService } from '../service/assistant.service';
 import { IAssistantList } from '../model/assistant.model';
 import { AssistantDetails } from '../assistant-details/assistant-details';
+import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
 
 @Component({
   selector: 'app-assistant-lists',
@@ -21,7 +14,6 @@ import { AssistantDetails } from '../assistant-details/assistant-details';
   styleUrl: './assistant-lists.scss',
 })
 export class AssistantLists implements OnInit {
-  componentRef: ComponentRef<AssistantDetails> | null = null;
   dataList = signal<IAssistantList[]>([]);
   headerList = signal<IHeader[]>([
     {
@@ -46,8 +38,7 @@ export class AssistantLists implements OnInit {
   ]);
   constructor(
     private assistantService: AssistantService,
-    private injector: EnvironmentInjector,
-    private applicationRef: ApplicationRef,
+    public lazyLoadComponentService: LazyLoadComponentService<AssistantDetails>,
   ) {}
 
   ngOnInit(): void {
@@ -62,20 +53,33 @@ export class AssistantLists implements OnInit {
     console.log(event);
   }
   async onEdit(data: any) {
-    console.log('Data', data);
+    console.log(data);
+    await this.lazyLoadAssistantDetailsComponent();
+  }
+
+  async onAdd() {
+    await this.lazyLoadAssistantDetailsComponent();
+  }
+
+  async lazyLoadAssistantDetailsComponent() {
     const AssistantDetails = await import(
       '../assistant-details/assistant-details'
     ).then((m) => m.AssistantDetails);
 
-    this.componentRef = createComponent(AssistantDetails, {
-      environmentInjector: this.injector,
-    });
-    this.componentRef.instance.onAssistantDetailsPopupHide.subscribe(() => {
-      this.componentRef?.destroy();
-      this.componentRef = null;
-    });
-    this.applicationRef.attachView(this.componentRef.hostView);
-    document.body.appendChild(this.componentRef.location.nativeElement);
-    this.componentRef.changeDetectorRef.detectChanges();
+    this.lazyLoadComponentService.componentRef = createComponent(
+      AssistantDetails,
+      {
+        environmentInjector: this.lazyLoadComponentService.injector,
+      },
+    );
+    this.lazyLoadComponentService.componentRef.instance.onHide.subscribe(
+      () => {},
+    );
+    this.lazyLoadComponentService.applicationRef.attachView(
+      this.lazyLoadComponentService.componentRef.hostView,
+    );
+    document.body.appendChild(
+      this.lazyLoadComponentService.componentRef.location.nativeElement,
+    );
   }
 }

@@ -1,7 +1,8 @@
 <p-dialog
   header="Header"
-  [(visible)]="visible"
-  (onHide)="onHide()"
+  [visible]="visible()"
+  (visibleChange)="visible.set($event)"
+  (onHide)="handleHide()"
   [modal]="true"
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
   [style]="{ width: '50vw' }"
@@ -9,12 +10,11 @@
   [resizable]="false"
 >
   <div class="card">
-    <p-tabs value="/dashboard">
+    <p-tabs (valueChange)="onTabChange($event)" value="Overview">
       <p-tablist>
-        @for (tab of tabs; track tab.route) {
+        @for (tab of tabs; track $index) {
           <p-tab
-            [value]="tab.route"
-            [routerLink]="tab.route"
+            [value]="tab.label"
             class="flex items-center !gap-2 text-inherit"
           >
             <i [class]="tab.icon"></i>
@@ -22,6 +22,14 @@
           </p-tab>
         }
       </p-tablist>
+      <p-tabpanels>
+        <p-tabpanel value="Overview">
+          <app-assistant-overview></app-assistant-overview>
+        </p-tabpanel>
+        <p-tabpanel value="Knowledge Base">
+          <div #loadAssistantKnowledgeBase></div>
+        </p-tabpanel>
+      </p-tabpanels>
     </p-tabs>
   </div>
 </p-dialog>
