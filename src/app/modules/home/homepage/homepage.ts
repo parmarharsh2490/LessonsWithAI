@@ -1,18 +1,27 @@
-import { Component, signal } from '@angular/core';
-import { VapiCallBtn } from '../../../components/vapi-call-btn/vapi-call-btn';
+import { Component, OnInit, signal } from '@angular/core';
 import { SelectModule } from 'primeng/select';
 import { AssistantService } from '../../assistant/service/assistant.service';
-import { AsyncPipe, CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { VapiCallBtn } from '../../vapi/vapi-call-btn/vapi-call-btn';
+import { IAssistantList } from '../../assistant/model/assistant.model';
 
 @Component({
   selector: 'app-homepage',
-  imports: [VapiCallBtn, SelectModule, AsyncPipe, CommonModule, FormsModule],
+  imports: [VapiCallBtn, SelectModule, CommonModule, FormsModule],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',
 })
-export class Homepage {
-  protected readonly title = signal('Learn.AI');
+export class Homepage implements OnInit {
+  assistants = signal<IAssistantList[]>([]);
   selectedAssistant = signal<string | undefined>(undefined);
   constructor(public assistantService: AssistantService) {}
+
+  ngOnInit(): void {
+    this.assistantService
+      .getAssistants()
+      .subscribe((data: IAssistantList[]) => {
+        this.assistants.set(data);
+      });
+  }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import Vapi from '@vapi-ai/web';
 
 @Injectable({
@@ -6,4 +6,5 @@ import Vapi from '@vapi-ai/web';
 })
 export class VapiService {
   vapi = new Vapi('4ec964d5-76fb-4649-a1ed-0592eab73a53');
+  showChatBot = signal(true);
 }

@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
-import { VapiService } from '../../services/vapi.service';
 import { ButtonModule } from 'primeng/button';
+import { VapiService } from '../service/vapi.service';
 
 @Component({
   selector: 'app-vapi-call-btn',

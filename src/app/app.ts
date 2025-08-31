@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Sidebar } from './components/sidebar/sidebar';
-import { VapiChatBtn } from './components/vapi-chat-btn/vapi-chat-btn';
+import { VapiChatBtn } from './modules/vapi/vapi-chat-btn/vapi-chat-btn';
 import { Toast } from 'primeng/toast';
 
 @Component({

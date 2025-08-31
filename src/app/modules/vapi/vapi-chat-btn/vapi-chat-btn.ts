@@ -1,6 +1,6 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { CommonService } from '../../services/common-service';
+import { CommonService } from '../../../services/common-service';
 
 @Component({
   selector: 'app-vapi-chat-btn',

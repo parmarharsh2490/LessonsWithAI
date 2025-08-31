@@ -1,0 +1,16 @@
+<div [formGroup]="formData()" class="d-flex flex-column gap-2">
+  <label for="name">{{ label() }}</label>
+  <input
+    [type]="type()"
+    pInputText
+    class="w-100"
+    [placeholder]="placeholder()"
+    [formControlName]="key()"
+  />
+  @if (formData().get(key())?.invalid && formData().get(key())?.touched) {
+    <p-message severity="error"
+      >{{ key().charAt(0).toUpperCase() + key().slice(1) }} is
+      required</p-message
+    >
+  }
+</div>
