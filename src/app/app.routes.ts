@@ -1,45 +1,37 @@
 import { Routes } from '@angular/router';
-import { Homepage } from './modules/home/homepage/homepage';
-import { UserProfile } from './modules/user/user-profile/user-profile';
-import { AssistantLists } from './modules/assistant/assistant-lists/assistant-lists';
-import { CallHistoryLists } from './modules/call/call-history-lists/call-history-lists';
-import { KnowledgebaseList } from './modules/knowledgebase/knowledgebase-list/knowledgebase-list';
-import { Login } from './modules/auth/login/login';
-import { Register } from './modules/auth/register/register';
-import { AuthLayout } from './modules/auth/auth-layout/auth-layout';
+import { assistantRoutes } from './modules/assistant/assistant.routes';
+import { authRoutes } from './modules/auth/auth.route';
+import { userRoutes } from './modules/user/user.routes';
+import { callRoutes } from './modules/call/call.routes';
+import { homeRoutes } from './modules/home/home.routes';
+import { knowledgebaseRoutes } from './modules/knowledgebase/knowledgebase-list/knowledgebase.routes';
 export const routes: Routes = [
   {
     path: '',
-    component: Homepage,
+    children: homeRoutes,
   },
   {
     path: 'assistants',
-    component: AssistantLists,
+    children: assistantRoutes,
   },
   {
     path: 'profile',
-    component: UserProfile,
+    children: userRoutes,
   },
   {
     path: 'call-history',
-    component: CallHistoryLists,
+    children: callRoutes,
   },
   {
     path: 'knowledge-base',
-    component: KnowledgebaseList,
+    children: knowledgebaseRoutes,
   },
   {
     path: 'auth',
-    component: AuthLayout,
-    children: [
-      {
-        path: 'login',
-        component: Login,
-      },
-      {
-        path: 'register',
-        component: Register,
-      },
-    ],
+    children: authRoutes,
+    loadComponent: () =>
+      import('./modules/auth/auth-layout/auth-layout').then(
+        (m) => m.AuthLayout,
+      ),
   },
 ];
