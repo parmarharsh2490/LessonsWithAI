@@ -1,10 +1,9 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 import { CommonService } from '../../../services/common-service';
 
 @Component({
   selector: 'app-vapi-chat-btn',
-  imports: [ButtonModule],
+  imports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './vapi-chat-btn.html',
   styleUrl: './vapi-chat-btn.scss',

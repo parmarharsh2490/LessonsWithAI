@@ -1,11 +1,11 @@
 import { Component, input } from '@angular/core';
-import { ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { InputTextModule } from 'primeng/inputtext';
-import { MessageModule } from 'primeng/message';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { InputText } from 'primeng/inputtext';
+import { Message } from 'primeng/message';
 
 @Component({
   selector: 'app-input',
-  imports: [InputTextModule, ReactiveFormsModule, MessageModule],
+  imports: [InputText, ReactiveFormsModule, Message],
   templateUrl: './input.html',
   styleUrl: './input.scss',
 })

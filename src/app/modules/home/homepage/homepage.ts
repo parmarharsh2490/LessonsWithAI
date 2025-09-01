@@ -1,14 +1,13 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { SelectModule } from 'primeng/select';
+import { Select } from 'primeng/select';
 import { AssistantService } from '../../assistant/service/assistant.service';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { VapiCallBtn } from '../../vapi/vapi-call-btn/vapi-call-btn';
 import { IAssistantList } from '../../assistant/model/assistant.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-homepage',
-  imports: [VapiCallBtn, SelectModule, CommonModule, FormsModule],
+  imports: [VapiCallBtn, Select, FormsModule],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',
 })

@@ -7,15 +7,15 @@ import {
   signal,
   ViewChild,
 } from '@angular/core';
-import { TabsModule } from 'primeng/tabs';
-import { DialogModule } from 'primeng/dialog';
+import { Dialog } from 'primeng/dialog';
 import { AssistantOverview } from '../assistant-overview/assistant-overview';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
 import { AssistantKnowledgeBase } from '../assistant-knowledge-base/assistant-knowledge-base';
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';
 
 @Component({
   selector: 'app-assistant-details',
-  imports: [TabsModule, DialogModule, AssistantOverview],
+  imports: [Dialog, AssistantOverview, Tabs, TabList, Tab, TabPanels, TabPanel],
   providers: [LazyLoadComponentService],
   templateUrl: './assistant-details.html',
   styleUrl: './assistant-details.scss',

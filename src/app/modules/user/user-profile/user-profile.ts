@@ -6,22 +6,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { Button } from 'primeng/button';
-import { CardModule } from 'primeng/card';
-import { InputTextModule } from 'primeng/inputtext';
-import { MessageModule } from 'primeng/message';
+import { Card } from 'primeng/card';
 import { UserProfileService } from '../service/user-profile.service';
 import { MessageService } from '../../../services/message.service';
 import { Input } from '../../../components/ui/input/input';
 @Component({
   selector: 'app-user-profile',
-  imports: [
-    Button,
-    CardModule,
-    InputTextModule,
-    ReactiveFormsModule,
-    MessageModule,
-    Input,
-  ],
+  imports: [Button, Card, ReactiveFormsModule, Input],
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.scss',
 })

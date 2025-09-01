@@ -1,12 +1,11 @@
 import { Component, OnInit, signal } from '@angular/core';
-import { ButtonModule } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-auth-layout',
-  imports: [ReactiveFormsModule, ButtonModule, Card, RouterOutlet],
+  imports: [ReactiveFormsModule, Card, RouterOutlet],
   templateUrl: './auth-layout.html',
   styleUrl: './auth-layout.scss',
 })

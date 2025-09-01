@@ -1,19 +1,12 @@
 import { Component, OnInit, signal, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DrawerModule } from 'primeng/drawer';
-import { ButtonModule } from 'primeng/button';
+import { Drawer } from 'primeng/drawer';
+import { Button } from 'primeng/button';
 import { SidebarItem } from './types/sidebar.model';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [
-    DrawerModule,
-    ButtonModule,
-    CommonModule,
-    RouterLink,
-    RouterLinkActive,
-  ],
+  imports: [Drawer, Button, RouterLink, RouterLinkActive],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })

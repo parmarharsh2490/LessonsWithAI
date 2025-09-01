@@ -1,20 +1,14 @@
 import { Component, input, output } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { ButtonModule } from 'primeng/button';
-import { PaginatorModule, PaginatorState } from 'primeng/paginator';
+import { Button } from 'primeng/button';
+import { PaginatorState } from 'primeng/paginator';
 import { IHeader } from './model/table-list.modal';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-table-list',
-  imports: [
-    TableModule,
-    ButtonModule,
-    PaginatorModule,
-    ConfirmDialogModule,
-    DatePipe,
-  ],
+  imports: [TableModule, Button, ConfirmDialog, DatePipe],
   templateUrl: './table-list.html',
   styleUrl: './table-list.scss',
 })

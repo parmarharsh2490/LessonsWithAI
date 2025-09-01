@@ -5,12 +5,12 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
+import { Button } from 'primeng/button';
 import { Input } from '../../../components/ui/input/input';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, ButtonModule, Input],
+  imports: [ReactiveFormsModule, Button, Input],
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })

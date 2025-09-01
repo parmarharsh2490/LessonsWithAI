@@ -7,10 +7,19 @@
     [placeholder]="placeholder()"
     [formControlName]="key()"
   />
-  @if (formData().get(key())?.invalid && formData().get(key())?.touched) {
+  @if (
+    formData().get(key())?.errors?.["required"] &&
+    formData().get(key())?.touched
+  ) {
     <p-message severity="error"
       >{{ key().charAt(0).toUpperCase() + key().slice(1) }} is
       required</p-message
     >
+  } @else if (
+    formData().get(key())?.errors?.["email"] && formData().get(key())?.touched
+  ) {
+    <p-message severity="error">
+      {{ key().charAt(0).toUpperCase() + key().slice(1) }} is not valid
+    </p-message>
   }
 </div>

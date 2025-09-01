@@ -13,7 +13,7 @@ import {
 import { providePrimeNG } from 'primeng/config';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { ToastModule } from 'primeng/toast';
+import { Toast } from 'primeng/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { MyPreset } from '../assets/theme/preset.config';
 
@@ -30,7 +30,7 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     provideHttpClient(withFetch()),
-    ToastModule,
+    Toast,
     MessageService,
     ConfirmationService,
   ],
