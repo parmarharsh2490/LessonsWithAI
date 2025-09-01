@@ -15,4 +15,9 @@ export const routes: Routes = [
         (m) => m.AuthLayout,
       ),
   },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./components/not-found/not-found').then((m) => m.NotFound),
+  },
 ];
