@@ -1,1 +1,31 @@
-<p>assistant-knowledge-base works!</p>
+<div>
+  @for (item of knowledgeBaseList(); track $index) {
+    @if (!remainingKnowledgeBaseList().includes(item)) {
+      <div
+        class="bg-primary p-2 px-4 flex align-items-center justify-content-between my-2"
+      >
+        <div class="d-flex gap-2 align-items-center">
+          <h5>{{ item.fileName }}</h5>
+        </div>
+        <div (click)="onDelete(item)" class="">
+          <i class="pi pi-trash delete-icon"></i>
+        </div>
+      </div>
+    }
+  }
+</div>
+<!-- {{assistant().model | json}}
+<br>
+{{remainingKnowledgeBaseList() | json}}
+<br>
+{{knowledgeBaseList() | json}} -->
+<div>
+  <p-select
+    [appendTo]="'body'"
+    [options]="remainingKnowledgeBaseList()"
+    optionLabel="fileName"
+    placeholder="Select Document"
+    class="w-full"
+    (onChange)="onChange($event)"
+  />
+</div>

@@ -1,0 +1,77 @@
+<p-dialog
+  header="Select Voice"
+  [draggable]="false"
+  [modal]="true"
+  [(visible)]="visible"
+  (onHide)="onHide.emit()"
+  [style]="{ width: '50rem' }"
+>
+  <div
+    class="d-flex align-items-center justify-content-between py-4 px-2 gap-2"
+  >
+    <div class="w-100">
+      <input
+        type="search"
+        pInputText
+        [(ngModel)]="searchTerm"
+        placeholder="Search Voice"
+      />
+    </div>
+    <div class="w-100">
+      <p-select
+        [appendTo]="'body'"
+        [options]="genders()"
+        [(ngModel)]="selectedGender"
+        placeholder="Select a City"
+        class="w-full"
+      />
+    </div>
+    <div class="w-100">
+      <p-select
+        [appendTo]="'body'"
+        [options]="accents()"
+        [(ngModel)]="selectedAccent"
+        placeholder="Select a City"
+        class="w-full"
+      />
+    </div>
+    <div class="w-100">
+      <p-select
+        [appendTo]="'body'"
+        [options]="tones()"
+        [(ngModel)]="selectedTone"
+        placeholder="Select a City"
+        class="w-full"
+      />
+    </div>
+  </div>
+  <div class="grid grid-cols-2 w-100 gap-2">
+    @for (voice of voices(); track $index) {
+      <div
+        (click)="selectedVoice.set(voice)"
+        [class]="{
+          'bg-primary': voice.id === selectedVoice()?.id,
+          'bg-dark': voice.id !== selectedVoice()?.id,
+        }"
+        class="d-flex align-items-center justify-content-between rounded p-4 col cursor-pointer"
+      >
+        <div class="d-flex flex-column gap-2">
+          <div class="d-flex gap-2">
+            <h5 class="fw-bold h5">{{ voice.name }}</h5>
+            <span class="text-secondary"> {{ voice.accent }}</span>
+          </div>
+          <div class="d-flex gap-2">
+            <span class="text-secondary"> {{ voice.tone }} </span>
+            <span class="text-secondary"> {{ voice.gender }} </span>
+          </div>
+        </div>
+        <div>
+          <i
+            [class]="{ 'text-white': voice.id === selectedVoice()?.id }"
+            class="pi pi-play text-primary cursor-pointer fw-bold fs-3"
+          ></i>
+        </div>
+      </div>
+    }
+  </div>
+</p-dialog>

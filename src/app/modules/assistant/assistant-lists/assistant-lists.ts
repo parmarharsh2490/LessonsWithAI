@@ -47,6 +47,7 @@ export class AssistantLists implements OnInit {
       .subscribe((data: IAssistantList[]) => {
         this.dataList.set(data);
       });
+    this.onEdit(null);
   }
 
   onPageChange(event: PaginatorState) {

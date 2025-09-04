@@ -1,9 +1,62 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  createComponent,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
+import { IAssistant } from '../model/assistant.model';
+import { AssistantVoiceNamePipe } from '../pipe/assistant-voice-name-pipe';
+import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
+import { VoiceDialog } from '../voice-dialog/voice-dialog';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Input } from '../../../components/ui/input/input';
+import { Button } from 'primeng/button';
 
 @Component({
   selector: 'app-assistant-overview',
-  imports: [],
+  imports: [AssistantVoiceNamePipe, Input, ReactiveFormsModule, Button],
   templateUrl: './assistant-overview.html',
   styleUrl: './assistant-overview.scss',
 })
-export class AssistantOverview {}
+export class AssistantOverview implements OnInit {
+  assistant = input.required<IAssistant | null>();
+  formData = signal<FormGroup>(
+    new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(20),
+      ]),
+    }),
+  );
+  constructor(
+    private lazyLoadComponentService: LazyLoadComponentService<VoiceDialog>,
+  ) {}
+
+  ngOnInit(): void {
+    // this.openVoiceModal();
+  }
+  async openVoiceModal() {
+    const VoiceDialog = await import('../voice-dialog/voice-dialog').then(
+      (m) => m.VoiceDialog,
+    );
+    this.lazyLoadComponentService.componentRef = createComponent(VoiceDialog, {
+      environmentInjector: this.lazyLoadComponentService.injector,
+    });
+    this.lazyLoadComponentService.componentRef.instance.onHide.subscribe(() => {
+      this.lazyLoadComponentService.componentRef?.destroy();
+    });
+    this.lazyLoadComponentService.applicationRef.attachView(
+      this.lazyLoadComponentService.componentRef.hostView,
+    );
+    document.body.appendChild(
+      this.lazyLoadComponentService.componentRef.location.nativeElement,
+    );
+  }
+}

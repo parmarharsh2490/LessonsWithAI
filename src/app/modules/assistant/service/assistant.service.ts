@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-import { IAssistantList } from '../model/assistant.model';
+import { IAssistant, IAssistantList } from '../model/assistant.model';
 @Injectable({
   providedIn: 'root',
 })
 export class AssistantService {
   getAssistantById(id: string) {
     console.log(id);
-    return of({
+    return of<IAssistant>({
       _id: '687077b967147df8dc46bcdf',
       assistantId: '099fcd13-76b0-4fac-8025-9cf446f8ec73',
       user: '67aa3e99b22c7966a461a0ab',
       assistantModel: 'chatgpt-4o-latest',
       assistantName: 'tt',
-      created_at: '2025-07-11T02:32:25.669Z',
-      updated_at: '2025-08-24T11:05:48.373Z',
+      created_at: new Date('2025-07-11T02:32:25.669Z'),
+      updated_at: new Date('2025-08-24T11:05:48.373Z'),
       __v: 0,
       voice: {
         model: 'eleven_turbo_v2',
@@ -37,7 +37,7 @@ export class AssistantService {
       },
       model: {
         model: 'chatgpt-4o-latest',
-        toolIds: ['511ba604-19b3-4990-9ebe-bd291aa360a6'],
+        toolIds: [],
         messages: [
           {
             role: 'system',
@@ -209,7 +209,7 @@ export class AssistantService {
           'Would you like me to wait while you consider?',
         ],
         idleMessageMaxSpokenCount: 3,
-        idleTimeoutSeconds: 9,
+        // idleTimeoutSeconds: 9,
       },
       monitorPlan: {
         listenEnabled: true,

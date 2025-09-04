@@ -12,8 +12,8 @@ export interface IAssistant {
   user: string;
   assistantModel: string;
   assistantName: string;
-  createdAt: Date;
-  updatedAt: Date;
+  created_at: Date;
+  updated_at: Date;
   __v: number;
   voice: {
     model: string;
@@ -22,12 +22,14 @@ export interface IAssistant {
     provider: string;
     stability: number;
     fallbackPlan: {
-      voices: {
-        model: string;
-        voiceId: string;
-        provider: string;
-        useSpeakerBoost: boolean;
-      };
+      voices: [
+        {
+          model: string;
+          voiceId: string;
+          provider: string;
+          useSpeakerBoost: boolean;
+        },
+      ];
     };
     similarityBoost: number;
     useSpeakerBoost: boolean;

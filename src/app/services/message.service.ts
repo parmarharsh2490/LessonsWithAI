@@ -22,4 +22,20 @@ export class MessageService {
       detail: message,
     });
   }
+
+  showInfoToast(message: string) {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Info',
+      detail: message,
+    });
+  }
+
+  showWarnToast(message: string) {
+    this.messageService.add({
+      severity: 'warn',
+      summary: 'Warn',
+      detail: message,
+    });
+  }
 }

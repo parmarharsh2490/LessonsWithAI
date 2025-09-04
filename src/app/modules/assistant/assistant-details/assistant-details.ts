@@ -12,6 +12,8 @@ import { AssistantOverview } from '../assistant-overview/assistant-overview';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
 import { AssistantKnowledgeBase } from '../assistant-knowledge-base/assistant-knowledge-base';
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';
+import { IAssistant } from '../model/assistant.model';
+import { AssistantService } from '../service/assistant.service';
 
 @Component({
   selector: 'app-assistant-details',
@@ -21,15 +23,21 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';
   styleUrl: './assistant-details.scss',
 })
 export class AssistantDetails implements OnInit {
+  assistant = signal<IAssistant | null>(null);
   @ViewChild('loadAssistantKnowledgeBase')
   loadAssistantKnowledgeBase!: ElementRef;
   onHide = output<void>();
   visible = signal<boolean>(true);
   constructor(
     private lazyLoadComponentService: LazyLoadComponentService<AssistantKnowledgeBase>,
+    private assistantService: AssistantService,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.assistantService.getAssistantById('1').subscribe((data) => {
+      this.assistant.set(data);
+    });
+  }
 
   handleHide(): void {
     this.onHide.emit();
@@ -46,6 +54,20 @@ export class AssistantDetails implements OnInit {
         {
           environmentInjector: this.lazyLoadComponentService.injector,
           hostElement: this.loadAssistantKnowledgeBase.nativeElement,
+        },
+      );
+      this.lazyLoadComponentService.componentRef.setInput(
+        'assistant',
+        this.assistant(),
+      );
+      this.lazyLoadComponentService.componentRef.instance.updateAssistant.subscribe(
+        (data) => {
+          console.log('Data: ', data);
+          this.assistant.set(data);
+          this.lazyLoadComponentService.componentRef?.setInput(
+            'assistant',
+            this.assistant(),
+          );
         },
       );
       this.lazyLoadComponentService.applicationRef.attachView(

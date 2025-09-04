@@ -2,6 +2,17 @@ body {
   background-color: unset !important;
 }
 
-.cursor-pointer {
+$danger-color: red;
+
+@mixin cursor-pointer {
   cursor: pointer;
+}
+
+.cursor-pointer {
+  @include cursor-pointer;
+}
+
+.delete-icon {
+  @include cursor-pointer;
+  color: $danger-color;
 }

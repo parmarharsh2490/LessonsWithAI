@@ -23,7 +23,9 @@
       </p-tablist>
       <p-tabpanels>
         <p-tabpanel value="Overview">
-          <app-assistant-overview></app-assistant-overview>
+          <app-assistant-overview
+            [assistant]="assistant()"
+          ></app-assistant-overview>
         </p-tabpanel>
         <p-tabpanel value="Knowledge Base">
           <div #loadAssistantKnowledgeBase></div>
