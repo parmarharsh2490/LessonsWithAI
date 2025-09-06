@@ -1,13 +1,198 @@
 <p-dialog
-  header="Header"
   [(visible)]="visible"
   (onHide)="handleHide()"
   [modal]="true"
   [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '70vw' }"
   [draggable]="false"
   [resizable]="false"
 >
-  <h1>Call Report</h1>
-  {{ callId() }}
+  <div class="">
+    <div class="d-flex justify-content-start align-items-center mb-2">
+      <span>{{ callReport()?.createdAt | date: "dd/MM/yyyy HH:mm" }}</span>
+      <span>{{ callReport()?.type }}</span>
+    </div>
+    <div>
+      <div class="d-flex align-items-center justify-content-between row">
+        <div class="d-flex flex-column gap-1 col-md-6">
+          <div>Assistant ID</div>
+          <span>
+            {{ callReport()?.assistantId }}
+          </span>
+        </div>
+        <div class="d-flex flex-column gap-1 col-md-6">
+          <div>Call ID</div>
+          <span>
+            {{ callReport()?.id }}
+          </span>
+        </div>
+      </div>
+      <div class="d-flex align-items-center justify-content-between row">
+        <div class="d-flex flex-column gap-1 col-md-6">
+          <div>Duration</div>
+          <span>
+            {{ getCallDuration() }}
+          </span>
+        </div>
+        <div class="d-flex flex-column gap-1 col-md-6">
+          <div>Cost</div>
+          <span>
+            {{ callReport()?.cost }}
+          </span>
+        </div>
+      </div>
+
+      <div>
+        <p-tabs value="0">
+          <p-tablist>
+            <p-tab value="0">Conversation</p-tab>
+            <p-tab value="1">Summary</p-tab>
+            <p-tab value="2">Success Evaluation</p-tab>
+            <p-tab value="3">Recording</p-tab>
+          </p-tablist>
+          <p-tabpanels>
+            <!-- Conversation Tab -->
+            <p-tabpanel value="0">
+              <div class="">
+                <div
+                  class="d-flex justify-content-between align-items-center mb-3"
+                >
+                  <h6>Conversation</h6>
+                  <p-button
+                    label="Download Transcript"
+                    icon="pi pi-download"
+                    size="small"
+                    (onClick)="downloadTranscript()"
+                  />
+                </div>
+                <div class="">
+                  @for (message of callReport()?.messages; track message.time) {
+                    <div class="mb-3 p-3 border rounded">
+                      <div class="d-flex align-items-start">
+                        <span class="me-3 text-muted small">{{
+                          message.time | date: "MMM dd, yyyy hh:mm:ss a"
+                        }}</span>
+                        <div class="">
+                          <strong class="text-capitalize"
+                            >{{ message.role }}:</strong
+                          >
+                          <p class="mb-0 mt-1">{{ message.message }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  }
+                </div>
+              </div>
+            </p-tabpanel>
+
+            <!-- Summary Tab -->
+            <p-tabpanel value="1">
+              <div class="">
+                <h6 class="mb-3">Call Summary</h6>
+                <div class="">
+                  <div class="mb-4">
+                    <h6>Summary</h6>
+                    <p class="text-muted">
+                      {{
+                        callReport()?.analysis?.summary ||
+                          "No summary available"
+                      }}
+                    </p>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="d-flex flex-column gap-1">
+                        <div class="">Call Outcome</div>
+                        <span>
+                          {{
+                            callReport()?.analysis?.structuredData?.callOutcome
+                          }}
+                        </span>
+                      </div>
+                      <div class="d-flex flex-column gap-1">
+                        <div>Call Sentiment</div>
+                        <span>
+                          {{
+                            callReport()?.analysis?.structuredData
+                              ?.callSentiment
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="d-flex flex-column gap-1">
+                        <div class="">Follow-up Status</div>
+                        <span>
+                          {{
+                            callReport()?.analysis?.structuredData
+                              ?.followUpStatus
+                          }}
+                        </span>
+                      </div>
+                      <div class="d-flex flex-column gap-1">
+                        <div class="">Objective Achievement</div>
+                        <span>
+                          {{
+                            callReport()?.analysis?.structuredData
+                              ?.objectiveAchievement
+                          }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-tabpanel>
+
+            <!-- Success Evaluation Tab -->
+            <p-tabpanel value="2">
+              <div class="">
+                <h6 class="mb-3">Success Evaluation</h6>
+                <div class="">
+                  <div class="p-3 border rounded">
+                    {{
+                      callReport()?.analysis?.successEvaluation ||
+                        "No evaluation available"
+                    }}
+                  </div>
+                </div>
+              </div>
+            </p-tabpanel>
+
+            <!-- Recording Tab -->
+            <p-tabpanel value="3">
+              <div class="">
+                <h6 class="mb-3">Call Recording</h6>
+                <div class="">
+                  @if (callReport()?.recordingUrl) {
+                    <div class="audio-player mb-3">
+                      <audio controls class="w-100">
+                        <source
+                          [src]="callReport()?.recordingUrl"
+                          type="audio/wav"
+                        />
+                        Your browser does not support the audio element.
+                      </audio>
+                    </div>
+                    <div>
+                      <p-button
+                        label="Download Recording"
+                        icon="pi pi-download"
+                        size="small"
+                        (onClick)="downloadRecording()"
+                      />
+                    </div>
+                  } @else {
+                    <p class="text-muted">
+                      No recording available for this call.
+                    </p>
+                  }
+                </div>
+              </div>
+            </p-tabpanel>
+          </p-tabpanels>
+        </p-tabs>
+      </div>
+    </div>
+  </div>
 </p-dialog>

@@ -30,9 +30,9 @@ export class TableList implements OnInit, AfterViewInit {
   onPageChange = output<PaginatorState>();
   pageSize = input<number>();
   totalRecords = input<number>();
-  showEdit = signal<boolean>(true);
-  showDelete = signal<boolean>(true);
-  showAdd = signal<boolean>(true);
+  showEdit = signal<boolean>(false);
+  showDelete = signal<boolean>(false);
+  showAdd = signal<boolean>(false);
   isRowClick = signal<boolean>(false);
   onAdd = output<void>();
   onDelete = output<any>();
