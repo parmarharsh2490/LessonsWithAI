@@ -2,6 +2,7 @@ import {
   Component,
   createComponent,
   ElementRef,
+  input,
   OnInit,
   output,
   signal,
@@ -14,6 +15,7 @@ import { AssistantKnowledgeBase } from '../assistant-knowledge-base/assistant-kn
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';
 import { IAssistant } from '../model/assistant.model';
 import { AssistantService } from '../service/assistant.service';
+import { AssistantDataService } from '../service/assistant-data.service';
 
 @Component({
   selector: 'app-assistant-details',
@@ -23,7 +25,7 @@ import { AssistantService } from '../service/assistant.service';
   styleUrl: './assistant-details.scss',
 })
 export class AssistantDetails implements OnInit {
-  assistant = signal<IAssistant | null>(null);
+  assistantId = input<string | null>(null);
   @ViewChild('loadAssistantKnowledgeBase')
   loadAssistantKnowledgeBase!: ElementRef;
   onHide = output<void>();
@@ -31,12 +33,17 @@ export class AssistantDetails implements OnInit {
   constructor(
     private lazyLoadComponentService: LazyLoadComponentService<AssistantKnowledgeBase>,
     private assistantService: AssistantService,
+    public assistantDataService: AssistantDataService,
   ) {}
 
   ngOnInit(): void {
-    this.assistantService.getAssistantById('1').subscribe((data) => {
-      this.assistant.set(data);
-    });
+    if (this.assistantId()) {
+      this.assistantService
+        .getAssistantById(this.assistantId()!)
+        .subscribe((data: IAssistant) => {
+          this.assistantDataService.updateAssistant(data);
+        });
+    }
   }
 
   handleHide(): void {
@@ -56,19 +63,6 @@ export class AssistantDetails implements OnInit {
           hostElement: this.loadAssistantKnowledgeBase.nativeElement,
         },
       );
-      this.lazyLoadComponentService.componentRef.setInput(
-        'assistant',
-        this.assistant(),
-      );
-      this.lazyLoadComponentService.componentRef.instance.updateAssistant.subscribe(
-        (data) => {
-          this.assistant.set(data);
-          this.lazyLoadComponentService.componentRef?.setInput(
-            'assistant',
-            this.assistant(),
-          );
-        },
-      );
       this.lazyLoadComponentService.applicationRef.attachView(
         this.lazyLoadComponentService.componentRef.hostView,
       );
@@ -85,4 +79,8 @@ export class AssistantDetails implements OnInit {
       icon: 'pi pi-book',
     },
   ];
+
+  updateAssistant(event: IAssistant) {
+    this.assistantDataService.assistant.set(event);
+  }
 }

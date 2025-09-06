@@ -7,9 +7,7 @@ import { IKnowledgeBase } from '../model/knowledgebase.model';
   providedIn: 'root',
 })
 export class KnowledgebaseService {
-  constructor(private http: HttpClient) {
-    this.http.get;
-  }
+  constructor(private http: HttpClient) {}
 
   getKnowledgebaseList(): Observable<IKnowledgeBase[]> {
     return of([
@@ -32,5 +30,9 @@ export class KnowledgebaseService {
         fileSize: '60856',
       },
     ]);
+  }
+
+  uploadFile(file: File): Observable<any> {
+    return this.http.post('/api/upload', file);
   }
 }

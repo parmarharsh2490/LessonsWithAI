@@ -5,10 +5,12 @@ import { Dialog } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { InputText } from 'primeng/inputtext';
+import { Button } from 'primeng/button';
+import { AssistantDataService } from '../service/assistant-data.service';
 
 @Component({
   selector: 'app-voice-dialog',
-  imports: [Dialog, FormsModule, Select, InputText],
+  imports: [Dialog, FormsModule, Select, InputText, Button],
   templateUrl: './voice-dialog.html',
   styleUrl: './voice-dialog.scss',
 })
@@ -53,6 +55,7 @@ export class VoiceDialog implements OnInit {
     });
   });
 
+  constructor(private assistantDataService: AssistantDataService) {}
   ngOnInit(): void {
     this.genders.set(
       Array.from(['All', ...new Set(VOICES.map((voice) => voice.gender))]),
@@ -63,5 +66,18 @@ export class VoiceDialog implements OnInit {
     this.tones.set(
       Array.from(['All', ...new Set(VOICES.map((voice) => voice.tone))]),
     );
+  }
+
+  onSubmit() {
+    this.assistantDataService.assistant().voice.voiceId =
+      this.selectedVoice()?.id || '';
+    this.assistantDataService.updateAssistant(
+      this.assistantDataService.assistant(),
+    );
+    this.onHide.emit();
+  }
+
+  onCancel() {
+    this.onHide.emit();
   }
 }

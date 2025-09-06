@@ -12,7 +12,7 @@
 
 <div>
   @for (item of knowledgeBaseList(); track $index) {
-    @if (assistant().model.toolIds.includes(item._id)) {
+    @if (assistantDataService.assistant().model.toolIds.includes(item._id)) {
       <div
         class="bg-card-primary rounded-md border border-primary p-2 px-4 flex align-items-center justify-content-between my-2"
       >

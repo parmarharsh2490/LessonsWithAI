@@ -4,6 +4,8 @@ export const knowledgebaseRoutes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./knowledgebase-list').then((m) => m.KnowledgebaseList),
+      import('./knowledgebase-list/knowledgebase-list').then(
+        (m) => m.KnowledgebaseList,
+      ),
   },
 ];

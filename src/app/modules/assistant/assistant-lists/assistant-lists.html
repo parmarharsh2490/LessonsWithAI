@@ -5,6 +5,6 @@
   [pageSize]="10"
   [totalRecords]="dataList().length"
   (onPageChange)="onPageChange($event)"
-  (onEdit)="onEdit($event)"
+  (onRowClick)="onEdit($event)"
   (onAdd)="onAdd()"
 ></app-table-list>

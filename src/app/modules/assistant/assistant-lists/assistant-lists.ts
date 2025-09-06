@@ -6,6 +6,7 @@ import { AssistantService } from '../service/assistant.service';
 import { IAssistantList } from '../model/assistant.model';
 import { AssistantDetails } from '../assistant-details/assistant-details';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
+import { AssistantDataService } from '../service/assistant-data.service';
 
 @Component({
   selector: 'app-assistant-lists',
@@ -38,6 +39,7 @@ export class AssistantLists implements OnInit {
   ]);
   constructor(
     private assistantService: AssistantService,
+    public assistantDataService: AssistantDataService,
     public lazyLoadComponentService: LazyLoadComponentService<AssistantDetails>,
   ) {}
 
@@ -47,22 +49,24 @@ export class AssistantLists implements OnInit {
       .subscribe((data: IAssistantList[]) => {
         this.dataList.set(data);
       });
-    this.onEdit(null);
+    this.onEdit(this.dataList()[0]!);
   }
 
   onPageChange(event: PaginatorState) {
     event = { ...event };
   }
-  async onEdit(data: any) {
-    data = { ...data };
-    await this.lazyLoadAssistantDetailsComponent();
+  async onEdit(data: IAssistantList) {
+    await this.lazyLoadAssistantDetailsComponent(data.id);
   }
 
   async onAdd() {
+    this.assistantDataService.updateAssistant(
+      this.assistantDataService.intialAssistant,
+    );
     await this.lazyLoadAssistantDetailsComponent();
   }
 
-  async lazyLoadAssistantDetailsComponent() {
+  async lazyLoadAssistantDetailsComponent(id: string | null = null) {
     const AssistantDetails = await import(
       '../assistant-details/assistant-details'
     ).then((m) => m.AssistantDetails);
@@ -73,9 +77,7 @@ export class AssistantLists implements OnInit {
         environmentInjector: this.lazyLoadComponentService.injector,
       },
     );
-    this.lazyLoadComponentService.componentRef.instance.onHide.subscribe(
-      () => {},
-    );
+    this.lazyLoadComponentService.componentRef.setInput('assistantId', id);
     this.lazyLoadComponentService.applicationRef.attachView(
       this.lazyLoadComponentService.componentRef.hostView,
     );

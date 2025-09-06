@@ -1,0 +1,25 @@
+<p-dialog
+  header="Upload Documents"
+  [(visible)]="visible"
+  (onHide)="handleHide()"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <div>
+    <p-fileupload
+      [customUpload]="true"
+      #fu
+      url="/api/upload"
+      mode="advanced"
+      chooseIcon="pi pi-upload"
+      accept=".pdf"
+      (uploadHandler)="onUpload($event)"
+      chooseLabel="Choose"
+      [previewWidth]="0"
+      [multiple]="true"
+    />
+  </div>
+</p-dialog>

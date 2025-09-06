@@ -1,3 +1,5 @@
+import { IModel } from './model.model';
+
 export interface IAssistantList {
   id: string;
   assistant_name: string;
@@ -21,21 +23,11 @@ export interface IAssistant {
     voiceId: string;
     provider: string;
     stability: number;
-    fallbackPlan: {
-      voices: [
-        {
-          model: string;
-          voiceId: string;
-          provider: string;
-          useSpeakerBoost: boolean;
-        },
-      ];
-    };
     similarityBoost: number;
     useSpeakerBoost: boolean;
   };
   model: {
-    model: string;
+    model: IModel['id'];
     toolIds: string[];
     messages: {
       role: string;
@@ -62,15 +54,15 @@ export interface IAssistant {
   firstMessageMode: string;
   analysisPlan: {
     summaryPlan: {
-      enabled: true;
+      enabled: boolean;
       messages: {
         content: string;
         role: string;
       }[];
-      timeoutSeconds: 60;
+      timeoutSeconds: number;
     };
     structuredDataPlan: {
-      enabled: true;
+      enabled: boolean;
       schema: {
         type: string;
         required: string[];
@@ -118,7 +110,7 @@ export interface IAssistant {
       timeoutSeconds: number;
     };
     successEvaluationPlan: {
-      enabled: true;
+      enabled: boolean;
       rubric: string;
       messages: {
         content: string;

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IAssistant, IAssistantList } from '../model/assistant.model';
 @Injectable({
   providedIn: 'root',
 })
 export class AssistantService {
-  getAssistantById(id: string) {
+  getAssistantById(id: string): Observable<IAssistant> {
     id = id;
     return of<IAssistant>({
       _id: '687077b967147df8dc46bcdf',
@@ -22,16 +22,6 @@ export class AssistantService {
         voiceId: 'FGY2WhTYpPnrIDTdsKH5',
         provider: '11labs',
         stability: 0.5,
-        fallbackPlan: {
-          voices: [
-            {
-              model: 'eleven_turbo_v2',
-              voiceId: 'sarah',
-              provider: '11labs',
-              useSpeakerBoost: false,
-            },
-          ],
-        },
         similarityBoost: 0.75,
         useSpeakerBoost: false,
       },

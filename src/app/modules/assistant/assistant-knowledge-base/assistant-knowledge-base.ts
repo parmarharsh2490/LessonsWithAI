@@ -1,15 +1,8 @@
-import {
-  Component,
-  computed,
-  input,
-  OnInit,
-  output,
-  signal,
-} from '@angular/core';
+import { Component, computed, OnInit, signal } from '@angular/core';
 import { IKnowledgeBase } from '../../knowledgebase/model/knowledgebase.model';
 import { KnowledgebaseService } from '../../knowledgebase/service/knowledgebase.service';
-import { IAssistant } from '../model/assistant.model';
 import { Select } from 'primeng/select';
+import { AssistantDataService } from '../service/assistant-data.service';
 
 @Component({
   selector: 'app-assistant-knowledge-base',
@@ -19,16 +12,17 @@ import { Select } from 'primeng/select';
 })
 export class AssistantKnowledgeBase implements OnInit {
   knowledgeBaseList = signal<IKnowledgeBase[]>([]);
-  assistant = input.required<IAssistant>();
-  updateAssistant = output<IAssistant>();
   remainingKnowledgeBaseList = computed<IKnowledgeBase[]>(() => {
     return this.knowledgeBaseList().filter(
       (item: IKnowledgeBase) =>
-        !this.assistant().model.toolIds.includes(item._id),
+        !this.assistantDataService.assistant().model.toolIds.includes(item._id),
     );
   });
 
-  constructor(private knowledgebaseService: KnowledgebaseService) {}
+  constructor(
+    private knowledgebaseService: KnowledgebaseService,
+    public assistantDataService: AssistantDataService,
+  ) {}
   ngOnInit(): void {
     this.knowledgebaseService
       .getKnowledgebaseList()
@@ -38,16 +32,16 @@ export class AssistantKnowledgeBase implements OnInit {
   }
 
   onChange(event: any) {
-    let newAssistant = { ...this.assistant() };
+    let newAssistant = { ...this.assistantDataService.assistant() };
     newAssistant.model.toolIds.push(event.value._id);
-    this.updateAssistant.emit(newAssistant);
+    this.assistantDataService.updateAssistant(newAssistant);
   }
 
   onDelete(item: IKnowledgeBase) {
-    let newAssistant = { ...this.assistant() };
+    let newAssistant = { ...this.assistantDataService.assistant() };
     newAssistant.model.toolIds = newAssistant.model.toolIds.filter(
       (id: string) => id !== item._id,
     );
-    this.updateAssistant.emit(newAssistant);
+    this.assistantDataService.updateAssistant(newAssistant);
   }
 }

@@ -24,7 +24,8 @@
       <p-tabpanels>
         <p-tabpanel value="Overview">
           <app-assistant-overview
-            [assistant]="assistant()"
+            [assistant]="assistantDataService.assistant()!"
+            (updateAssistant)="updateAssistant($event)"
           ></app-assistant-overview>
         </p-tabpanel>
         <p-tabpanel value="Knowledge Base">
