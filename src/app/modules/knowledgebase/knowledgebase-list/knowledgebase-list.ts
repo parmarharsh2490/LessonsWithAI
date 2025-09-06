@@ -42,7 +42,6 @@ export class KnowledgebaseList implements OnInit {
     this.knowledgebaseService.getKnowledgebaseList().subscribe((res) => {
       this.dataList.set(res);
     });
-    this.onAdd();
   }
 
   onPageChange(event: PaginatorState) {
