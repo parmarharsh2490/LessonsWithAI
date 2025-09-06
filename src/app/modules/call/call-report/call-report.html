@@ -1,0 +1,13 @@
+<p-dialog
+  header="Header"
+  [(visible)]="visible"
+  (onHide)="handleHide()"
+  [modal]="true"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '50vw' }"
+  [draggable]="false"
+  [resizable]="false"
+>
+  <h1>Call Report</h1>
+  {{ callId() }}
+</p-dialog>

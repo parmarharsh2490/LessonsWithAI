@@ -51,10 +51,10 @@ export class AssistantLists implements OnInit {
   }
 
   onPageChange(event: PaginatorState) {
-    console.log(event);
+    event = { ...event };
   }
   async onEdit(data: any) {
-    console.log(data);
+    data = { ...data };
     await this.lazyLoadAssistantDetailsComponent();
   }
 

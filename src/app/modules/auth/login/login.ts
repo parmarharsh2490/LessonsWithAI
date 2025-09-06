@@ -21,7 +21,5 @@ export class Login {
       password: new FormControl('', [Validators.required]),
     }),
   );
-  login() {
-    console.log(this.formData().value);
-  }
+  login() {}
 }

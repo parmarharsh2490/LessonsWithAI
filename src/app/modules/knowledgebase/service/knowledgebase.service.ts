@@ -8,7 +8,7 @@ import { IKnowledgeBase } from '../model/knowledgebase.model';
 })
 export class KnowledgebaseService {
   constructor(private http: HttpClient) {
-    console.log(this.http);
+    this.http.get;
   }
 
   getKnowledgebaseList(): Observable<IKnowledgeBase[]> {

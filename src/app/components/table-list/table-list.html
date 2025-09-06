@@ -1,7 +1,7 @@
 <div class="d-flex flex-column rounded-lg w-100">
   <div class="d-flex justify-content-between align-items-center py-0 px-4">
     <h3 class="fw-bold fs-3 text-primary">{{ pageHeader() }}</h3>
-    @if (showAddButton()) {
+    @if (showAdd()) {
       <p-button label="Add" (onClick)="handleAdd()" icon="pi pi-plus" />
     }
   </div>
@@ -33,9 +33,19 @@
         <tr>
           @for (header of headerList(); track header) {
             @if (header.type === "date") {
-              <td>{{ data[header.key] | date: "dd/MM/yyyy" }}</td>
+              <td
+                (click)="onRowClick.emit(data)"
+                [class]="isRowClick() ? 'cursor-pointer' : 'cursor-default'"
+              >
+                {{ data[header.key] | date: "dd/MM/yyyy" }}
+              </td>
             } @else {
-              <td>{{ data[header.key] }}</td>
+              <td
+                (click)="onRowClick.emit(data)"
+                [class]="isRowClick() ? 'cursor-pointer' : 'cursor-default'"
+              >
+                {{ data[header.key] }}
+              </td>
             }
           }
           @if (showEdit()) {

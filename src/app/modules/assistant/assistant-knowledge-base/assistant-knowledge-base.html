@@ -1,8 +1,20 @@
 <div>
+  <p-select
+    [appendTo]="'body'"
+    [options]="remainingKnowledgeBaseList()"
+    optionLabel="fileName"
+    placeholder="Select Document"
+    class="w-full"
+    #selectKnowledgeBase
+    (onChange)="onChange($event); selectKnowledgeBase.clear()"
+  />
+</div>
+
+<div>
   @for (item of knowledgeBaseList(); track $index) {
-    @if (!remainingKnowledgeBaseList().includes(item)) {
+    @if (assistant().model.toolIds.includes(item._id)) {
       <div
-        class="bg-primary p-2 px-4 flex align-items-center justify-content-between my-2"
+        class="bg-card-primary rounded-md border border-primary p-2 px-4 flex align-items-center justify-content-between my-2"
       >
         <div class="d-flex gap-2 align-items-center">
           <h5>{{ item.fileName }}</h5>
@@ -13,19 +25,4 @@
       </div>
     }
   }
-</div>
-<!-- {{assistant().model | json}}
-<br>
-{{remainingKnowledgeBaseList() | json}}
-<br>
-{{knowledgeBaseList() | json}} -->
-<div>
-  <p-select
-    [appendTo]="'body'"
-    [options]="remainingKnowledgeBaseList()"
-    optionLabel="fileName"
-    placeholder="Select Document"
-    class="w-full"
-    (onChange)="onChange($event)"
-  />
 </div>

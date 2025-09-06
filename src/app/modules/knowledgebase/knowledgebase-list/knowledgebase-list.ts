@@ -11,7 +11,7 @@ import { IHeader } from '../../../components/table-list/model/table-list.modal';
 })
 export class KnowledgebaseList {
   onPageChange(event: PaginatorState) {
-    console.log(event);
+    event = { ...event };
   }
   dataList = signal<any[]>(
     Array.from({ length: 12 }, (_, index) => ({

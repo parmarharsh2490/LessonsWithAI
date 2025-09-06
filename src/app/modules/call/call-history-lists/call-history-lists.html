@@ -3,9 +3,8 @@
   [headerList]="headerList()"
   [dataList]="dataList()"
   [pageSize]="10"
-  [showEdit]="false"
-  [showDelete]="false"
-  [showAddButton]="false"
+  (onRowClick)="onRowClick($event)"
   [totalRecords]="dataList().length"
+  (onPageChavngee)="onPageChange($event)"
   (onPageChange)="onPageChange($event)"
 ></app-table-list>

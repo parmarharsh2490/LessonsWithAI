@@ -22,7 +22,5 @@ export class Register {
       password: new FormControl('', [Validators.required]),
     }),
   );
-  register() {
-    console.log(this.formData().value);
-  }
+  register() {}
 }

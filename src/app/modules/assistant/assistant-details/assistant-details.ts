@@ -62,7 +62,6 @@ export class AssistantDetails implements OnInit {
       );
       this.lazyLoadComponentService.componentRef.instance.updateAssistant.subscribe(
         (data) => {
-          console.log('Data: ', data);
           this.assistant.set(data);
           this.lazyLoadComponentService.componentRef?.setInput(
             'assistant',

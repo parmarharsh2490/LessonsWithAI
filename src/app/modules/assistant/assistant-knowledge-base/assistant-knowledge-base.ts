@@ -22,7 +22,6 @@ export class AssistantKnowledgeBase implements OnInit {
   assistant = input.required<IAssistant>();
   updateAssistant = output<IAssistant>();
   remainingKnowledgeBaseList = computed<IKnowledgeBase[]>(() => {
-    console.log(this.assistant().model.toolIds, this.knowledgeBaseList());
     return this.knowledgeBaseList().filter(
       (item: IKnowledgeBase) =>
         !this.assistant().model.toolIds.includes(item._id),

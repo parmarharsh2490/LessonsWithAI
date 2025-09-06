@@ -6,7 +6,7 @@ import { IAssistant, IAssistantList } from '../model/assistant.model';
 })
 export class AssistantService {
   getAssistantById(id: string) {
-    console.log(id);
+    id = id;
     return of<IAssistant>({
       _id: '687077b967147df8dc46bcdf',
       assistantId: '099fcd13-76b0-4fac-8025-9cf446f8ec73',
