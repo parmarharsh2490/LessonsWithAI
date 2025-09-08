@@ -13,6 +13,21 @@ const app = express();
 const angularApp = new AngularNodeAppEngine();
 
 /**
+ * Security headers middleware
+ */
+app.use((_, res, next) => {
+  // Set X-Frame-Options to prevent clickjacking
+  res.setHeader('X-Frame-Options', 'DENY');
+
+  // Additional security headers
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+  next();
+});
+
+/**
  * Example Express Rest API endpoints can be defined here.
  * Uncomment and define endpoints as necessary.
  *

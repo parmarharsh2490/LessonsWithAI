@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Toast } from 'primeng/toast';
 import { SEOConfigService } from './services/seo-config.service';
+import { CommonService } from './services/common-service';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,18 @@ import { SEOConfigService } from './services/seo-config.service';
   styleUrl: './app.scss',
 })
 export class App implements OnInit {
-  constructor(private seoConfigService: SEOConfigService) {}
+  constructor(
+    private seoConfigService: SEOConfigService,
+    private commonService: CommonService,
+  ) {}
 
   ngOnInit(): void {
     // Initialize global SEO configuration
-    this.seoConfigService.initializeGlobalSEO();
-    this.seoConfigService.addOrganizationStructuredData();
-    this.seoConfigService.addWebsiteStructuredData();
-    this.seoConfigService.addSoftwareApplicationStructuredData();
+    if (this.commonService.isBrowser) {
+      this.seoConfigService.initializeGlobalSEO();
+      this.seoConfigService.addOrganizationStructuredData();
+      this.seoConfigService.addWebsiteStructuredData();
+      this.seoConfigService.addSoftwareApplicationStructuredData();
+    }
   }
 }

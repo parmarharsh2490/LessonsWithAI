@@ -76,7 +76,7 @@ export class SEOConfigService {
       'http-equiv': 'X-Content-Type-Options',
       content: 'nosniff',
     });
-    this.meta.updateTag({ 'http-equiv': 'X-Frame-Options', content: 'DENY' });
+    // Note: X-Frame-Options must be set via HTTP headers, not meta tags
     this.meta.updateTag({
       'http-equiv': 'X-XSS-Protection',
       content: '1; mode=block',
