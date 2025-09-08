@@ -1,12 +1,4 @@
-import {
-  Component,
-  createComponent,
-  input,
-  OnInit,
-  output,
-  signal,
-} from '@angular/core';
-import { IAssistant } from '../model/assistant.model';
+import { Component, createComponent, OnInit, signal } from '@angular/core';
 import { AssistantVoiceNamePipe } from '../pipe/assistant-voice-name-pipe';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
 import { VoiceDialog } from '../voice-dialog/voice-dialog';
@@ -22,6 +14,7 @@ import { Button } from 'primeng/button';
 import { Select } from 'primeng/select';
 import { MODELS } from '../constant/model';
 import { IModel } from '../model/model.model';
+import { AssistantDataService } from '../service/assistant-data.service';
 
 @Component({
   selector: 'app-assistant-overview',
@@ -37,8 +30,6 @@ import { IModel } from '../model/model.model';
   styleUrl: './assistant-overview.scss',
 })
 export class AssistantOverview implements OnInit {
-  assistant = input.required<IAssistant>();
-  updateAssistant = output<IAssistant>();
   modelList = signal<IModel[]>(MODELS);
   formData = signal<FormGroup>(
     new FormGroup({
@@ -51,6 +42,7 @@ export class AssistantOverview implements OnInit {
   );
   constructor(
     private lazyLoadComponentService: LazyLoadComponentService<VoiceDialog>,
+    public assistantDataService: AssistantDataService,
   ) {}
 
   ngOnInit(): void {
@@ -75,12 +67,6 @@ export class AssistantOverview implements OnInit {
   }
 
   assistantModelChange(event: IModel['id']) {
-    this.updateAssistant.emit({
-      ...this.assistant(),
-      model: {
-        ...this.assistant()?.model,
-        model: event,
-      },
-    });
+    this.assistantDataService.updateAssistant({ model: event });
   }
 }

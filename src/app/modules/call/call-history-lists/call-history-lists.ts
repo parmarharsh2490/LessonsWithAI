@@ -5,7 +5,9 @@ import { IHeader } from '../../../components/table-list/model/table-list.modal';
 import { CallReport } from '../call-report/call-report';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
 import { ICallReportLists } from '../model/call.model';
-import { CallService } from '../service/call.service';
+import { httpResource } from '@angular/common/http';
+import { IResponseData } from '../../../core/response/response-data';
+import { TOAST_MESSAGES } from '../../../core/response/resonse-message';
 @Component({
   selector: 'app-call-history-lists',
   imports: [TableList],
@@ -13,8 +15,6 @@ import { CallService } from '../service/call.service';
   styleUrl: './call-history-lists.scss',
 })
 export class CallHistoryLists implements OnInit {
-  dataList = signal<ICallReportLists[]>([]);
-
   headerList = signal<IHeader[]>([
     {
       label: 'Time',
@@ -50,17 +50,18 @@ export class CallHistoryLists implements OnInit {
     },
   ]);
 
+  callHistoryResource = httpResource<IResponseData<ICallReportLists[]>>(() => ({
+    url: 'https://dummyjson.com/products',
+    context: TOAST_MESSAGES(
+      'Successfully fetched the data',
+      'Error fetching the data',
+    ),
+  }));
+
   constructor(
     private lazyLoadComponentService: LazyLoadComponentService<CallReport>,
-    private callService: CallService,
   ) {}
-  ngOnInit(): void {
-    this.callService
-      .getCallHistoryLists()
-      .subscribe((data: ICallReportLists[]) => {
-        this.dataList.set(data);
-      });
-  }
+  ngOnInit(): void {}
 
   onPageChange(event: PaginatorState) {
     event = { ...event };

@@ -84,4 +84,8 @@ export class AssistantLists implements OnInit {
       this.lazyLoadComponentService.componentRef.location.nativeElement,
     );
   }
+
+  onDelete(event: any) {
+    event;
+  }
 }

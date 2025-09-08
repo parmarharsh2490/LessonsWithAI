@@ -7,12 +7,15 @@ import { knowledgebaseRoutes } from '../../knowledgebase/knowledgebase.routes';
 import { Layout } from '../layout/layout';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from '../../auth/auth-interceptor';
+import { toastInterceptor } from '../../../core/interceptor/toast-interceptor';
 export const layoutRoutes: Routes = [
   {
     path: '',
     component: Layout,
     // canActivate : [AuthGuard]
-    providers: [provideHttpClient(withInterceptors([authInterceptor]))],
+    providers: [
+      provideHttpClient(withInterceptors([authInterceptor, toastInterceptor])),
+    ],
     children: [
       {
         path: '',

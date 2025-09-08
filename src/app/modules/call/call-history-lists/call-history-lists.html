@@ -1,10 +1,10 @@
 <app-table-list
   [pageHeader]="'Call History'"
   [headerList]="headerList()"
-  [dataList]="dataList()"
+  [dataList]="callHistoryResource.value()?.dataList || []"
   [pageSize]="10"
   (onRowClick)="onRowClick($event)"
-  [totalRecords]="dataList().length"
+  [totalRecords]="callHistoryResource.value()?.totalRecords"
   (onPageChavngee)="onPageChange($event)"
   (onPageChange)="onPageChange($event)"
 ></app-table-list>

@@ -13,18 +13,18 @@
       [options]="modelList()"
       [optionLabel]="'name'"
       [optionValue]="'id'"
-      [ngModel]="assistant().model.model"
+      [ngModel]="assistantDataService.assistant().model"
       (ngModelChange)="assistantModelChange($event)"
       [ngModelOptions]="{ standalone: true }"
     ></p-select>
   </div>
   <div class="d-flex flex-column gap-2">
-    <label for="voice">Select Voice</label>{{ assistant().model.model }}
+    <label for="voice">Select Voice</label>
     <div
       (click)="openVoiceModal()"
       class="d-flex bg-primary p-2 rounded cursor-pointer"
     >
-      {{ assistant().voice.voiceId | assistantVoiceName }}
+      {{ assistantDataService.assistant().voice | assistantVoiceName }}
     </div>
   </div>
   <div class="w-100 d-flex justify-content-end mt-2">

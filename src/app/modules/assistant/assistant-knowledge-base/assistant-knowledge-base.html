@@ -6,20 +6,20 @@
     placeholder="Select Document"
     class="w-full"
     #selectKnowledgeBase
-    (onChange)="onChange($event); selectKnowledgeBase.clear()"
+    (onChange)="onChange($event)"
   />
 </div>
 
 <div>
   @for (item of knowledgeBaseList(); track $index) {
-    @if (assistantDataService.assistant().model.toolIds.includes(item._id)) {
+    @if (assistantDataService.assistant().toolIds.includes(item._id)) {
       <div
         class="bg-card-primary rounded-md border border-primary p-2 px-4 flex align-items-center justify-content-between my-2"
       >
         <div class="d-flex gap-2 align-items-center">
           <h5>{{ item.fileName }}</h5>
         </div>
-        <div (click)="onDelete(item)" class="">
+        <div (click)="onDelete(item); selectKnowledgeBase.clear()" class="">
           <i class="pi pi-trash delete-icon"></i>
         </div>
       </div>

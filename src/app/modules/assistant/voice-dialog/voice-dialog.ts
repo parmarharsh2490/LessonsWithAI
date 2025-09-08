@@ -69,11 +69,9 @@ export class VoiceDialog implements OnInit {
   }
 
   onSubmit() {
-    this.assistantDataService.assistant().voice.voiceId =
-      this.selectedVoice()?.id || '';
-    this.assistantDataService.updateAssistant(
-      this.assistantDataService.assistant(),
-    );
+    this.assistantDataService.updateAssistant({
+      voice: this.selectedVoice()?.id ?? '',
+    });
     this.onHide.emit();
   }
 

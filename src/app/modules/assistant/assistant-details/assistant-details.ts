@@ -79,8 +79,4 @@ export class AssistantDetails implements OnInit {
       icon: 'pi pi-book',
     },
   ];
-
-  updateAssistant(event: IAssistant) {
-    this.assistantDataService.assistant.set(event);
-  }
 }
