@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { Input } from '../../../components/ui/input/input';
+import { SEOService } from '../../../services/seo.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ import { Input } from '../../../components/ui/input/input';
   templateUrl: './register.html',
   styleUrl: './register.scss',
 })
-export class Register {
+export class Register implements OnInit {
   formData = signal<FormGroup>(
     new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -22,5 +23,13 @@ export class Register {
       password: new FormControl('', [Validators.required]),
     }),
   );
+
+  constructor(private seoService: SEOService) {}
+
+  ngOnInit(): void {
+    // Set SEO meta tags for register page
+    this.seoService.updateSEO(this.seoService.getRegisterSEO());
+  }
+
   register() {}
 }

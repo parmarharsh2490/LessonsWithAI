@@ -7,6 +7,7 @@ import { IAssistantList } from '../model/assistant.model';
 import { AssistantDetails } from '../assistant-details/assistant-details';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
 import { AssistantDataService } from '../service/assistant-data.service';
+import { SEOService } from '../../../services/seo.service';
 
 @Component({
   selector: 'app-assistant-lists',
@@ -41,9 +42,13 @@ export class AssistantLists implements OnInit {
     private assistantService: AssistantService,
     public assistantDataService: AssistantDataService,
     public lazyLoadComponentService: LazyLoadComponentService<AssistantDetails>,
+    private seoService: SEOService,
   ) {}
 
   ngOnInit(): void {
+    // Set SEO meta tags for assistants page
+    this.seoService.updateSEO(this.seoService.getAssistantsSEO());
+
     this.assistantService
       .getAssistants()
       .subscribe((data: IAssistantList[]) => {

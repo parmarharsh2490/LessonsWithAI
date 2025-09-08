@@ -8,6 +8,7 @@ import { ICallReportLists } from '../model/call.model';
 import { httpResource } from '@angular/common/http';
 import { IResponseData } from '../../../core/response/response-data';
 import { TOAST_MESSAGES } from '../../../core/response/resonse-message';
+import { SEOService } from '../../../services/seo.service';
 @Component({
   selector: 'app-call-history-lists',
   imports: [TableList],
@@ -60,8 +61,13 @@ export class CallHistoryLists implements OnInit {
 
   constructor(
     private lazyLoadComponentService: LazyLoadComponentService<CallReport>,
+    private seoService: SEOService,
   ) {}
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    // Set SEO meta tags for call history page
+    this.seoService.updateSEO(this.seoService.getCallHistorySEO());
+  }
 
   onPageChange(event: PaginatorState) {
     event = { ...event };

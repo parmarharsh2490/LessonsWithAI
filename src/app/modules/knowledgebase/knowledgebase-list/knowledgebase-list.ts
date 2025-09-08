@@ -6,6 +6,7 @@ import { KnowledgebaseService } from '../service/knowledgebase.service';
 import { IKnowledgeBase } from '../model/knowledgebase.model';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
 import { KnowledgebaseAddDialog } from '../knowledgebase-add-dialog/knowledgebase-add-dialog';
+import { SEOService } from '../../../services/seo.service';
 
 @Component({
   selector: 'app-knowledgebase-list',
@@ -37,8 +38,13 @@ export class KnowledgebaseList implements OnInit {
   constructor(
     private knowledgebaseService: KnowledgebaseService,
     private lazyLoadComponentService: LazyLoadComponentService<KnowledgebaseAddDialog>,
+    private seoService: SEOService,
   ) {}
+
   ngOnInit(): void {
+    // Set SEO meta tags for knowledge base page
+    this.seoService.updateSEO(this.seoService.getKnowledgeBaseSEO());
+
     this.knowledgebaseService.getKnowledgebaseList().subscribe((res) => {
       this.dataList.set(res);
     });
