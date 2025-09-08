@@ -1,7 +1,7 @@
 {
-  "name": "Learn.AI - AI-Powered Learning Assistant Platform",
-  "short_name": "Learn.AI",
-  "description": "Transform your learning experience with Learn.AI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
+  "name": "LessonsWithAI - AI-Powered Learning Assistant Platform",
+  "short_name": "LessonsWithAI",
+  "description": "Transform your learning experience with LessonsWithAI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

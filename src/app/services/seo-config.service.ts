@@ -9,11 +9,11 @@ export class SEOConfigService {
 
   // Global SEO configuration
   private readonly globalConfig = {
-    siteName: 'Learn.AI',
-    siteUrl: 'https://learn.ai',
-    defaultImage: 'https://learn.ai/assets/og-default.jpg',
-    twitterHandle: '@LearnAI',
-    author: 'Learn.AI Team',
+    siteName: 'LessonsWithAI',
+    siteUrl: 'https://www.lessonswithai.tech',
+    defaultImage: 'https://www.lessonswithai.tech/assets/og-default.jpg',
+    twitterHandle: '@LessonsWithAI',
+    author: 'LessonsWithAI Team',
     language: 'en',
     locale: 'en_US',
   };
@@ -104,19 +104,19 @@ export class SEOConfigService {
     const organizationData = {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      name: 'Learn.AI',
+      name: 'LessonsWithAI',
       url: this.globalConfig.siteUrl,
       logo: `${this.globalConfig.siteUrl}/assets/logo.png`,
       description: 'AI-Powered Learning Assistant Platform',
       sameAs: [
-        'https://twitter.com/LearnAI',
-        'https://linkedin.com/company/learn-ai',
-        'https://github.com/learn-ai',
+        'https://twitter.com/LessonsWithAI',
+        'https://linkedin.com/company/lessonswithai',
+        'https://github.com/lessonswithai',
       ],
       contactPoint: {
         '@type': 'ContactPoint',
         contactType: 'customer service',
-        email: 'support@learn.ai',
+        email: 'support@lessonswithai.tech',
       },
     };
 
@@ -128,7 +128,7 @@ export class SEOConfigService {
     const websiteData = {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      name: 'Learn.AI',
+      name: 'LessonsWithAI',
       url: this.globalConfig.siteUrl,
       description: 'AI-Powered Learning Assistant Platform',
       potentialAction: {
@@ -146,7 +146,7 @@ export class SEOConfigService {
     const softwareData = {
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
-      name: 'Learn.AI',
+      name: 'LessonsWithAI',
       applicationCategory: 'EducationalApplication',
       operatingSystem: 'Web Browser',
       description:
@@ -154,7 +154,7 @@ export class SEOConfigService {
       url: this.globalConfig.siteUrl,
       author: {
         '@type': 'Organization',
-        name: 'Learn.AI Team',
+        name: 'LessonsWithAI Team',
       },
       offers: {
         '@type': 'Offer',

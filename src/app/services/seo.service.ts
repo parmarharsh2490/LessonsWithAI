@@ -30,12 +30,12 @@ export class SEOService {
   private title = inject(Title);
 
   private readonly defaultData: Partial<SEOData> = {
-    author: 'Learn.AI',
+    author: 'LessonsWithAI',
     robots: 'index, follow',
     ogType: 'website',
     twitterCard: 'summary_large_image',
-    twitterSite: '@LearnAI',
-    twitterCreator: '@LearnAI',
+    twitterSite: '@LessonsWithAI',
+    twitterCreator: '@LessonsWithAI',
   };
 
   updateSEO(data: SEOData): void {
@@ -140,27 +140,28 @@ export class SEOService {
   getHomepageSEO(): SEOData {
     return {
       title:
-        'Learn.AI - AI-Powered Learning Assistant Platform | Smart Tutoring & Education',
+        'LessonsWithAI - AI-Powered Learning Assistant Platform | Smart Tutoring & Education',
       description:
-        "Transform your learning experience with Learn.AI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
+        "Transform your learning experience with LessonsWithAI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
       keywords:
         'AI learning, artificial intelligence, education technology, smart tutoring, knowledge management, AI assistant, learning platform',
-      canonical: 'https://learn.ai/',
+      canonical: 'https://www.lessonswithai.tech/',
       ogTitle:
-        'Learn.AI - AI-Powered Learning Assistant Platform | Smart Tutoring & Education',
+        'LessonsWithAI - AI-Powered Learning Assistant Platform | Smart Tutoring & Education',
       ogDescription:
-        "Transform your learning experience with Learn.AI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
-      ogImage: 'https://learn.ai/assets/og-homepage.jpg',
-      ogUrl: 'https://learn.ai/',
+        "Transform your learning experience with LessonsWithAI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
+      ogImage: 'https://www.lessonswithai.tech/assets/og-homepage.jpg',
+      ogUrl: 'https://www.lessonswithai.tech/',
       structuredData: {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
-        name: 'Learn.AI',
+        name: 'LessonsWithAI',
         description: 'AI-Powered Learning Assistant Platform',
-        url: 'https://learn.ai/',
+        url: 'https://www.lessonswithai.tech/',
         potentialAction: {
           '@type': 'SearchAction',
-          target: 'https://learn.ai/search?q={search_term_string}',
+          target:
+            'https://www.lessonswithai.tech/search?q={search_term_string}',
           'query-input': 'required name=search_term_string',
         },
       },
@@ -169,77 +170,79 @@ export class SEOService {
 
   getLoginSEO(): SEOData {
     return {
-      title: 'Sign In to Learn.AI | Access Your AI Learning Assistant Account',
+      title:
+        'Sign In to LessonsWithAI | Access Your AI Learning Assistant Account',
       description:
-        'Sign in to your Learn.AI account to access AI-powered learning assistants, personalized tutoring, and comprehensive knowledge management tools.',
+        'Sign in to your LessonsWithAI account to access AI-powered learning assistants, personalized tutoring, and comprehensive knowledge management tools.',
       keywords:
-        'login, sign in, Learn.AI account, AI learning platform, user authentication',
-      canonical: 'https://learn.ai/auth/login',
+        'login, sign in, LessonsWithAI account, AI learning platform, user authentication',
+      canonical: 'https://www.lessonswithai.tech/auth/login',
       ogTitle:
-        'Sign In to Learn.AI | Access Your AI Learning Assistant Account',
+        'Sign In to LessonsWithAI | Access Your AI Learning Assistant Account',
       ogDescription:
-        'Sign in to your Learn.AI account to access AI-powered learning assistants and personalized tutoring.',
-      ogImage: 'https://learn.ai/assets/og-login.jpg',
-      ogUrl: 'https://learn.ai/auth/login',
+        'Sign in to your LessonsWithAI account to access AI-powered learning assistants and personalized tutoring.',
+      ogImage: 'https://www.lessonswithai.tech/assets/og-login.jpg',
+      ogUrl: 'https://www.lessonswithai.tech/auth/login',
     };
   }
 
   getRegisterSEO(): SEOData {
     return {
-      title: 'Create Account | Join Learn.AI - Start Your AI Learning Journey',
+      title:
+        'Create Account | Join LessonsWithAI - Start Your AI Learning Journey',
       description:
-        'Create your Learn.AI account and start your AI-powered learning journey. Get access to intelligent assistants, personalized tutoring, and knowledge management tools.',
+        'Create your LessonsWithAI account and start your AI-powered learning journey. Get access to intelligent assistants, personalized tutoring, and knowledge management tools.',
       keywords:
-        'register, sign up, create account, Learn.AI, AI learning platform, new user',
-      canonical: 'https://learn.ai/auth/register',
+        'register, sign up, create account, LessonsWithAI, AI learning platform, new user',
+      canonical: 'https://www.lessonswithai.tech/auth/register',
       ogTitle:
-        'Create Account | Join Learn.AI - Start Your AI Learning Journey',
+        'Create Account | Join LessonsWithAI - Start Your AI Learning Journey',
       ogDescription:
-        'Create your Learn.AI account and start your AI-powered learning journey with intelligent assistants.',
-      ogImage: 'https://learn.ai/assets/og-register.jpg',
-      ogUrl: 'https://learn.ai/auth/register',
+        'Create your LessonsWithAI account and start your AI-powered learning journey with intelligent assistants.',
+      ogImage: 'https://www.lessonswithai.tech/assets/og-register.jpg',
+      ogUrl: 'https://www.lessonswithai.tech/auth/register',
     };
   }
 
   getAssistantsSEO(): SEOData {
     return {
       title:
-        'AI Learning Assistants | Create & Manage Your Virtual Tutors - Learn.AI',
+        'AI Learning Assistants | Create & Manage Your Virtual Tutors - LessonsWithAI',
       description:
         'Explore and manage your AI learning assistants. Create, customize, and deploy intelligent tutoring agents for personalized learning experiences.',
       keywords:
         'AI assistants, learning agents, intelligent tutoring, AI customization, virtual tutors, educational AI',
-      canonical: 'https://learn.ai/assistants',
+      canonical: 'https://www.lessonswithai.tech/assistants',
       ogTitle:
-        'AI Learning Assistants | Create & Manage Your Virtual Tutors - Learn.AI',
+        'AI Learning Assistants | Create & Manage Your Virtual Tutors - LessonsWithAI',
       ogDescription:
         'Explore and manage your AI learning assistants for personalized tutoring experiences.',
-      ogImage: 'https://learn.ai/assets/og-assistants.jpg',
-      ogUrl: 'https://learn.ai/assistants',
+      ogImage: 'https://www.lessonswithai.tech/assets/og-assistants.jpg',
+      ogUrl: 'https://www.lessonswithai.tech/assistants',
       structuredData: {
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
         name: 'AI Assistants',
         description:
           'Collection of AI learning assistants for personalized education',
-        url: 'https://learn.ai/assistants',
+        url: 'https://www.lessonswithai.tech/assistants',
       },
     };
   }
 
   getProfileSEO(): SEOData {
     return {
-      title: 'My Profile Settings | Customize Your Learn.AI Experience',
+      title: 'My Profile Settings | Customize Your LessonsWithAI Experience',
       description:
-        'Manage your Learn.AI profile settings, preferences, and account information. Customize your AI learning experience.',
+        'Manage your LessonsWithAI profile settings, preferences, and account information. Customize your AI learning experience.',
       keywords:
-        'user profile, account settings, Learn.AI profile, user preferences, account management',
-      canonical: 'https://learn.ai/profile',
-      ogTitle: 'My Profile Settings | Customize Your Learn.AI Experience',
+        'user profile, account settings, LessonsWithAI profile, user preferences, account management',
+      canonical: 'https://www.lessonswithai.tech/profile',
+      ogTitle: 'My Profile Settings | Customize Your LessonsWithAI Experience',
       ogDescription:
-        'Manage your Learn.AI profile and customize your AI learning experience.',
-      ogImage: 'https://learn.ai/assets/og-profile.jpg',
-      ogUrl: 'https://learn.ai/profile',
+        'Manage your LessonsWithAI profile and customize your AI learning experience.',
+      ogImage: 'https://www.lessonswithai.tech/assets/og-profile.jpg',
+      ogUrl: 'https://www.lessonswithai.tech/profile',
       robots: 'noindex, nofollow', // Profile pages should not be indexed
     };
   }
@@ -247,18 +250,18 @@ export class SEOService {
   getCallHistorySEO(): SEOData {
     return {
       title:
-        'Learning Session History | Track Your AI Assistant Calls - Learn.AI',
+        'Learning Session History | Track Your AI Assistant Calls - LessonsWithAI',
       description:
         'View and analyze your AI assistant call history. Track learning sessions, review conversations, and monitor your progress.',
       keywords:
         'call history, learning sessions, AI conversations, progress tracking, session analytics',
-      canonical: 'https://learn.ai/call-history',
+      canonical: 'https://www.lessonswithai.tech/call-history',
       ogTitle:
-        'Learning Session History | Track Your AI Assistant Calls - Learn.AI',
+        'Learning Session History | Track Your AI Assistant Calls - LessonsWithAI',
       ogDescription:
         'View and analyze your AI assistant call history and learning sessions.',
-      ogImage: 'https://learn.ai/assets/og-call-history.jpg',
-      ogUrl: 'https://learn.ai/call-history',
+      ogImage: 'https://www.lessonswithai.tech/assets/og-call-history.jpg',
+      ogUrl: 'https://www.lessonswithai.tech/call-history',
       robots: 'noindex, nofollow', // User-specific data should not be indexed
     };
   }
@@ -266,39 +269,39 @@ export class SEOService {
   getKnowledgeBaseSEO(): SEOData {
     return {
       title:
-        'Knowledge Base Management | Upload & Organize Educational Content - Learn.AI',
+        'Knowledge Base Management | Upload & Organize Educational Content - LessonsWithAI',
       description:
-        'Manage your knowledge base with Learn.AI. Upload, organize, and maintain educational content for your AI assistants.',
+        'Manage your knowledge base with LessonsWithAI. Upload, organize, and maintain educational content for your AI assistants.',
       keywords:
         'knowledge base, content management, educational resources, AI training data, document management',
-      canonical: 'https://learn.ai/knowledge-base',
+      canonical: 'https://www.lessonswithai.tech/knowledge-base',
       ogTitle:
-        'Knowledge Base Management | Upload & Organize Educational Content - Learn.AI',
+        'Knowledge Base Management | Upload & Organize Educational Content - LessonsWithAI',
       ogDescription:
         'Manage your knowledge base and educational content for AI assistants.',
-      ogImage: 'https://learn.ai/assets/og-knowledge-base.jpg',
-      ogUrl: 'https://learn.ai/knowledge-base',
+      ogImage: 'https://www.lessonswithai.tech/assets/og-knowledge-base.jpg',
+      ogUrl: 'https://www.lessonswithai.tech/knowledge-base',
       structuredData: {
         '@context': 'https://schema.org',
         '@type': 'CollectionPage',
         name: 'Knowledge Base',
         description: 'Educational content and knowledge management system',
-        url: 'https://learn.ai/knowledge-base',
+        url: 'https://www.lessonswithai.tech/knowledge-base',
       },
     };
   }
 
   getNotFoundSEO(): SEOData {
     return {
-      title: '404 Error - Page Not Found | Return to Learn.AI Homepage',
+      title: '404 Error - Page Not Found | Return to LessonsWithAI Homepage',
       description:
-        'The page you are looking for could not be found. Return to Learn.AI homepage to continue your AI-powered learning journey.',
-      keywords: '404, page not found, error, Learn.AI',
-      canonical: 'https://learn.ai/404',
-      ogTitle: '404 Error - Page Not Found | Return to Learn.AI Homepage',
+        'The page you are looking for could not be found. Return to LessonsWithAI homepage to continue your AI-powered learning journey.',
+      keywords: '404, page not found, error, LessonsWithAI',
+      canonical: 'https://www.lessonswithai.tech/404',
+      ogTitle: '404 Error - Page Not Found | Return to LessonsWithAI Homepage',
       ogDescription: 'The page you are looking for could not be found.',
-      ogImage: 'https://learn.ai/assets/og-404.jpg',
-      ogUrl: 'https://learn.ai/404',
+      ogImage: 'https://www.lessonswithai.tech/assets/og-404.jpg',
+      ogUrl: 'https://www.lessonswithai.tech/404',
       robots: 'noindex, nofollow',
     };
   }

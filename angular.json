@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "Learn.AI": {
+    "LessonsWithAI": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -70,10 +70,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "Learn.AI:build:production"
+              "buildTarget": "LessonsWithAI:build:production"
             },
             "development": {
-              "buildTarget": "Learn.AI:build:development"
+              "buildTarget": "LessonsWithAI:build:development"
             }
           },
           "defaultConfiguration": "development"

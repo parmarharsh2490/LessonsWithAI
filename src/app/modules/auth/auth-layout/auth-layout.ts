@@ -10,13 +10,13 @@ import { Router, RouterOutlet } from '@angular/router';
   styleUrl: './auth-layout.scss',
 })
 export class AuthLayout implements OnInit {
-  title = signal<string>('Welcome to Learn.AI');
+  title = signal<string>('Welcome to LessonsWithAI');
   ngOnInit(): void {
     if (this.router && this.router.url) {
       if (this.router.url.endsWith('login')) {
         this.title.set('Welcome Back!');
       } else if (this.router.url.endsWith('register')) {
-        this.title.set('Welcome to Learn.AI');
+        this.title.set('Welcome to LessonsWithAI');
       }
     }
   }
