@@ -140,17 +140,20 @@ export class SEOService {
   getHomepageSEO(): SEOData {
     return {
       title:
-        'LessonsWithAI-homepage - AI-Powered Learning Assistant Platform | Smart Tutoring & Education',
+        'Homepage LessonsWithAI - AI-Powered Learning Assistant Platform | Smart Tutoring & Education',
       description:
-        "Transform your homepage learning experience with LessonsWithAI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
+        "Homepage Transform your learning experience with LessonsWithAI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
       keywords:
-        'AI learning,homepage artificial intelligence, education technology, smart tutoring, knowledge management, AI assistant, learning platform',
+        'Homepage AI learning, artificial intelligence, education technology, smart tutoring, knowledge management, AI assistant, learning platform',
       canonical: 'https://www.lessonswithai.tech/',
       ogTitle:
-        'LessonsWithAI - AI-Powered Learning Assistant Platform | Smart Tutoring & Education',
+        'Homepage LessonsWithAI - AI-Powered Learning Assistant Platform | Smart Tutoring & Education',
       ogDescription:
-        "Transform your learning experience with LessonsWithAI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
+        "Homepage Transform your learning experience with LessonsWithAI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
       ogUrl: 'https://www.lessonswithai.tech/',
+      ogImage:
+        'https://fastly.picsum.photos/id/4/5000/3333.jpg?hmac=ghf06FdmgiD0-G4c9DdNM8RnBIN7BO0-ZGEw47khHP4',
+      twitterImage: 'https://www.lessonswithai.tech/assets/og-homepage.jpg',
       structuredData: {
         '@context': 'https://schema.org',
         '@type': 'WebSite',
