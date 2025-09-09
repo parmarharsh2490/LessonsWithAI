@@ -150,7 +150,7 @@ export class SEOService {
         'LessonsWithAI - AI-Powered Learning Assistant Platform | Smart Tutoring & Education',
       ogDescription:
         "Transform your learning experience with LessonsWithAI's intelligent assistants. Get personalized tutoring, instant answers, and comprehensive knowledge base management.",
-      ogImage: 'https://www.lessonswithai.tech/assets/og-homepage.jpg',
+      ogImage: 'https://www.lessonswithai.tech/assets/17802008-1.jpg',
       ogUrl: 'https://www.lessonswithai.tech/',
       structuredData: {
         '@context': 'https://schema.org',
