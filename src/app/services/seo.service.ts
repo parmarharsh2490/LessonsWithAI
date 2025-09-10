@@ -1,5 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { CommonService } from './common-service';
 
 export interface SEOData {
   title: string;
@@ -26,6 +27,7 @@ export interface SEOData {
   providedIn: 'root',
 })
 export class SEOService {
+  private commonService = inject(CommonService);
   private meta = inject(Meta);
   private title = inject(Title);
 
@@ -122,6 +124,7 @@ export class SEOService {
   }
 
   private addStructuredData(data: any): void {
+    if (!this.commonService.isBrowser) return;
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.text = JSON.stringify(data);
