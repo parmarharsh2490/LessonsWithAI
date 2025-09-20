@@ -39,7 +39,7 @@ export class UserProfile implements OnInit {
     this.formData().markAllAsTouched();
     this.userProfileService.saveUserProfile(this.formData().value).subscribe(
       (res) => {
-        if (res.status === 200) {
+        if (res.statusCode === 200) {
           this.messageService.showSuccessToast('Profile updated successfully');
           this.formData().reset();
         }
