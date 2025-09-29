@@ -1,5 +1,6 @@
 import {
   ApplicationConfig,
+  ErrorHandler,
   provideBrowserGlobalErrorListeners,
   provideZonelessChangeDetection,
 } from '@angular/core';
@@ -21,6 +22,11 @@ import { Toast } from './core/toast/service/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { MyPreset } from '../assets/theme/preset.config';
 import { toastInterceptor } from './core/interceptor/toast-interceptor';
+import { authInterceptor } from './modules/auth/auth-interceptor';
+import { GloblaErrorHandler } from './core/error/global-error-handler';
+import { includeBearerTokenInterceptor } from 'keycloak-angular';
+import { keyCloackProviders } from './utils/keycloak-provider';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
@@ -33,8 +39,23 @@ export const appConfig: ApplicationConfig = {
         preset: MyPreset,
       },
     }),
-    provideHttpClient(withFetch(), withInterceptors([toastInterceptor])),
+    provideHttpClient(
+      withFetch(),
+      withInterceptors([
+        toastInterceptor,
+        authInterceptor,
+        ...(typeof window !== 'undefined'
+          ? [includeBearerTokenInterceptor]
+          : []),
+      ]),
+    ),
+    // Only provide Keycloak in browser environment
+    ...(typeof window !== 'undefined' ? keyCloackProviders() : []),
     Toast,
+    {
+      provide: ErrorHandler,
+      useClass: GloblaErrorHandler,
+    },
     MessageService,
     ConfirmationService,
   ],

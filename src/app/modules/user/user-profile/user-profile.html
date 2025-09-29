@@ -4,10 +4,17 @@
       <form [formGroup]="formData()" class="d-flex flex-column gap-3">
         <app-input
           [formData]="formData()"
-          [label]="'Name'"
+          [label]="'First Name'"
           [type]="'text'"
-          [placeholder]="'Enter your name'"
-          [key]="'name'"
+          [placeholder]="'Enter your first name'"
+          [key]="'first_name'"
+        />
+        <app-input
+          [formData]="formData()"
+          [label]="'Last Name'"
+          [type]="'text'"
+          [placeholder]="'Enter your first name'"
+          [key]="'last_name'"
         />
         <app-input
           [formData]="formData()"
@@ -15,13 +22,6 @@
           [type]="'text'"
           [placeholder]="'Enter your email'"
           [key]="'email'"
-        />
-        <app-input
-          [formData]="formData()"
-          [label]="'Password'"
-          [type]="'text'"
-          [placeholder]="'Enter your password'"
-          [key]="'password'"
         />
       </form>
     </ng-template>

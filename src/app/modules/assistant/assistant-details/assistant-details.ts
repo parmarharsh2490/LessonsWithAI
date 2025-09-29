@@ -16,6 +16,7 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from 'primeng/tabs';
 import { IAssistant } from '../model/assistant.model';
 import { AssistantService } from '../service/assistant.service';
 import { AssistantDataService } from '../service/assistant-data.service';
+import { IResponseData } from '../../../core/response/response-data';
 
 @Component({
   selector: 'app-assistant-details',
@@ -39,9 +40,9 @@ export class AssistantDetails implements OnInit {
   ngOnInit(): void {
     if (this.assistantId()) {
       this.assistantService
-        .getAssistantById(this.assistantId()!)
-        .subscribe((data: IAssistant) => {
-          this.assistantDataService.updateAssistant(data);
+        .getById(this.assistantId()!)
+        .subscribe((data: IResponseData<IAssistant>) => {
+          this.assistantDataService.updateAssistant(data.data);
         });
     }
   }

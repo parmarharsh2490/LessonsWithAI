@@ -3,11 +3,13 @@ import { TableList } from '../../../components/table-list/table-list';
 import { PaginatorState } from 'primeng/paginator';
 import { IHeader } from '../../../components/table-list/model/table-list.modal';
 import { AssistantService } from '../service/assistant.service';
-import { IAssistantList } from '../model/assistant.model';
 import { AssistantDetails } from '../assistant-details/assistant-details';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
 import { AssistantDataService } from '../service/assistant-data.service';
 import { SEOService } from '../../../services/seo.service';
+import { IResponseData } from '../../../core/response/response-data';
+import { IAssistant } from '../model/assistant.model';
+import { CommonService } from '../../../services/common-service';
 
 @Component({
   selector: 'app-assistant-lists',
@@ -16,7 +18,7 @@ import { SEOService } from '../../../services/seo.service';
   styleUrl: './assistant-lists.scss',
 })
 export class AssistantLists implements OnInit {
-  dataList = signal<IAssistantList[]>([]);
+  dataList = signal<IAssistant[]>([]);
   headerList = signal<IHeader[]>([
     {
       label: 'Assistant Name',
@@ -43,24 +45,26 @@ export class AssistantLists implements OnInit {
     public assistantDataService: AssistantDataService,
     public lazyLoadComponentService: LazyLoadComponentService<AssistantDetails>,
     private seoService: SEOService,
+    private commonService: CommonService,
   ) {}
 
   ngOnInit(): void {
     // Set SEO meta tags for assistants page
     this.seoService.updateSEO(this.seoService.getAssistantsSEO());
 
+    if (!this.commonService.isBrowser) return;
     this.assistantService
-      .getAssistants()
-      .subscribe((data: IAssistantList[]) => {
-        this.dataList.set(data);
+      .getAll()
+      .subscribe((data: IResponseData<IAssistant>) => {
+        this.dataList.set(data.dataList);
       });
   }
 
   onPageChange(event: PaginatorState) {
     event = { ...event };
   }
-  async onEdit(data: IAssistantList) {
-    await this.lazyLoadAssistantDetailsComponent(data.id);
+  async onEdit(data: IAssistant) {
+    await this.lazyLoadAssistantDetailsComponent(data._id);
   }
 
   async onAdd() {
