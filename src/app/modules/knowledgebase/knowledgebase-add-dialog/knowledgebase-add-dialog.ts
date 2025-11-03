@@ -1,7 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
 import { FileUpload } from 'primeng/fileupload';
-import { KnowledgebaseService } from '../service/knowledgebase.service';
 
 @Component({
   selector: 'app-knowledgebase-add-dialog',
@@ -10,14 +9,16 @@ import { KnowledgebaseService } from '../service/knowledgebase.service';
   styleUrl: './knowledgebase-add-dialog.scss',
 })
 export class KnowledgebaseAddDialog {
+  onUpload = output<FormData>();
   visible = signal<boolean>(true);
-  constructor(private knowledgebaseService: KnowledgebaseService) {}
+
   handleHide() {
     this.visible.set(false);
   }
 
-  onUpload(event: any) {
-    event;
-    this.knowledgebaseService;
+  onFileUpload(event: any) {
+    let formData = new FormData();
+    formData.append('file', event.files[0]);
+    this.onUpload.emit(formData);
   }
 }

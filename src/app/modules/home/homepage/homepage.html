@@ -2,16 +2,16 @@
   <div class="d-flex flex-column gap-2 w-25">
     <p-select
       [options]="assistants()"
-      [(ngModel)]="selectedAssistant"
+      [ngModel]="vapiService.selectedAssistant()"
+      (ngModelChange)="vapiService.selectedAssistant.set($event)"
       optionLabel="name"
       placeholder="Select Assistant"
       class="w-100"
-      [optionValue]="'id'"
-      [optionLabel]="'assistant_name'"
+      [optionValue]="'assistantId'"
+      [optionLabel]="'name'"
     />
-    <app-vapi-call-btn
-      class="w-100"
-      [assistantId]="selectedAssistant()"
-    ></app-vapi-call-btn>
+    <app-vapi-call-btn class="w-100"></app-vapi-call-btn>
   </div>
 </div>
+
+<app-vapi-chat-btn></app-vapi-chat-btn>

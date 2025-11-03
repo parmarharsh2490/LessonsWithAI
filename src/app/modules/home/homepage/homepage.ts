@@ -1,37 +1,29 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Select } from 'primeng/select';
 import { AssistantService } from '../../assistant/service/assistant.service';
 import { VapiCallBtn } from '../../vapi/vapi-call-btn/vapi-call-btn';
-import { IAssistant } from '../../assistant/model/assistant.model';
 import { FormsModule } from '@angular/forms';
 import { SEOService } from '../../../services/seo.service';
-import { IResponseData } from '../../../core/response/response-data';
-import { CommonService } from '../../../services/common-service';
+import { VapiService } from '../../vapi/service/vapi.service';
+import { toSignal } from '../../../core/base/safe-signal';
+import { IAssistant } from '../../assistant/model/assistant.model';
+import { VapiChatBtn } from '../../vapi/vapi-chat-btn/vapi-chat-btn';
 @Component({
-  selector: 'app-homepage',
-  imports: [VapiCallBtn, Select, FormsModule],
+  imports: [VapiCallBtn, Select, FormsModule, VapiChatBtn],
   templateUrl: './homepage.html',
   styleUrl: './homepage.scss',
 })
 export class Homepage implements OnInit {
-  assistants = signal<IAssistant[]>([]);
-  selectedAssistant = signal<string | undefined>(undefined);
+  private assistantService = inject(AssistantService);
+  assistants = toSignal<IAssistant>(this.assistantService.getAll());
 
   constructor(
-    public assistantService: AssistantService,
     private seoService: SEOService,
-    private commonService: CommonService,
+    public vapiService: VapiService,
   ) {}
 
   ngOnInit(): void {
     // Set SEO meta tags for homepage
     this.seoService.updateSEO(this.seoService.getHomepageSEO());
-
-    if (!this.commonService.isBrowser) return;
-    this.assistantService
-      .getAll()
-      .subscribe((data: IResponseData<IAssistant>) => {
-        this.assistants.set(data.dataList);
-      });
   }
 }

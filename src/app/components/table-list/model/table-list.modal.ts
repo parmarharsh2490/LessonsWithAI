@@ -1,5 +1,6 @@
-export interface IHeader {
+export interface IHeader<T> {
   label: string;
-  key: string;
+  key: keyof T;
   type?: string;
+  hyperlink?: boolean;
 }

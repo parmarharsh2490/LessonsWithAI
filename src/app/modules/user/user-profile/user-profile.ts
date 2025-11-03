@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -8,10 +8,12 @@ import {
 import { Button } from 'primeng/button';
 import { Card } from 'primeng/card';
 import { UserProfileService } from '../service/user-profile.service';
-import { MessageService } from '../../../services/message.service';
 import { Input } from '../../../components/ui/input/input';
 import { SEOService } from '../../../services/seo.service';
 import { CommonService } from '../../../services/common-service';
+import { KeycloakDataService } from '../../../utils/keycloak-data.service';
+import { firstValueFrom } from 'rxjs';
+
 @Component({
   selector: 'app-user-profile',
   imports: [Button, Card, ReactiveFormsModule, Input],
@@ -19,52 +21,45 @@ import { CommonService } from '../../../services/common-service';
   styleUrl: './user-profile.scss',
 })
 export class UserProfile implements OnInit {
+  private keycloakDataService = inject(KeycloakDataService);
+  private service = inject(UserProfileService);
+  private seoService = inject(SEOService);
+  private commonService = inject(CommonService);
+
+  isLoading = signal<boolean>(false);
+
   formData = signal<FormGroup>(
     new FormGroup({
       id: new FormControl(''),
-      first_name: new FormControl('', [Validators.required]),
-      last_name: new FormControl('', [Validators.required]),
+      firstName: new FormControl('', [Validators.required]),
+      lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
     }),
   );
-  constructor(
-    private userProfileService: UserProfileService,
-    private messageService: MessageService,
-    private seoService: SEOService,
-    private commonService: CommonService,
-  ) {}
 
   ngOnInit(): void {
     this.formData().get('email')?.disable();
     // Set SEO meta tags for user profile page
     this.seoService.updateSEO(this.seoService.getProfileSEO());
     if (!this.commonService.isBrowser) return;
-    this.setUserData();
+    this.setData();
   }
 
-  setUserData() {
-    const user = JSON.parse(localStorage.getItem('user') || '{}');
-    this.formData().patchValue({
-      id: user.id,
-      first_name: user.firstName,
-      last_name: user.lastName,
-      email: user.email,
+  setData() {
+    this.keycloakDataService.getUserData().then((userData) => {
+      this.formData().patchValue({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        id: userData.id,
+      });
     });
   }
   onSubmit() {
-    this.formData().get('email')?.enable();
-    this.formData().markAllAsTouched();
-    this.userProfileService.save(this.formData().value).subscribe(
-      (res) => {
-        if (res.responseCode === 200) {
-          this.messageService.showSuccessToast('Profile updated successfully');
-        }
-      },
-      (err) => {
-        this.messageService.showErrorToast(err.error.message);
-      },
+    this.isLoading.set(true);
+    firstValueFrom(this.service.update(this.formData().getRawValue())).then(
       () => {
-        this.formData().get('email')?.disable();
+        this.isLoading.set(false);
       },
     );
   }

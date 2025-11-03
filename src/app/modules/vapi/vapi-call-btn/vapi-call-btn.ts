@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Button } from 'primeng/button';
 import { VapiService } from '../service/vapi.service';
 
@@ -9,9 +9,12 @@ import { VapiService } from '../service/vapi.service';
   styleUrl: './vapi-call-btn.scss',
 })
 export class VapiCallBtn {
-  assistantId = input<string | undefined>(undefined);
-  constructor(private vapiService: VapiService) {}
+  constructor(public vapiService: VapiService) {}
   startCall() {
-    this.vapiService.vapi.start(this.assistantId());
+    if (this.vapiService.status() === 'PROCESSING') {
+      this.vapiService.endCall();
+    } else {
+      this.vapiService.startCall();
+    }
   }
 }

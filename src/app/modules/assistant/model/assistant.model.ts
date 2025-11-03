@@ -1,13 +1,21 @@
 import { z } from 'zod';
+import { voiceSchema } from './voice.model';
+import { modelSchema } from './model.model';
+import { knowledgebaseSchema } from '../../knowledgebase/model/knowledgebase.model';
 
-const assistantSchema = z.object({
-  _id: z.string(),
+export const assistantSchema = z.object({
+  id: z.string(),
+  assistantId: z.string(),
+  userId: z.string(),
   name: z.string().min(0).max(20),
-  model: z.string(),
-  voice: z.string(),
-  toolIds: z.array(z.string()),
-  created_at: z.date(),
-  updated_at: z.date(),
+  modelName: z.string(),
+  voiceName: z.string(),
+  voice: voiceSchema,
+  model: modelSchema,
+  toolId: z.string().optional(),
+  knowledgebase: knowledgebaseSchema,
+  createdAt: z.date().optional,
+  updatedAt: z.date().optional,
 });
 
 export type IAssistant = z.infer<typeof assistantSchema>;

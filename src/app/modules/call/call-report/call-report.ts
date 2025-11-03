@@ -1,10 +1,11 @@
-import { Component, input, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { CallService } from '../service/call.service';
 import { ICallReport } from '../model/call.model';
 import { Dialog } from 'primeng/dialog';
 import { DatePipe } from '@angular/common';
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from 'primeng/tabs';
 import { Button } from 'primeng/button';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-call-report',
   imports: [Dialog, DatePipe, Tabs, Tab, TabPanel, TabPanels, TabList, Button],
@@ -12,21 +13,19 @@ import { Button } from 'primeng/button';
   styleUrl: './call-report.scss',
 })
 export class CallReport implements OnInit {
+  private callService = inject(CallService);
   callId = input.required<string>();
   callReport = signal<ICallReport | null>(null);
   visible = signal<boolean>(true);
 
-  constructor(private callService: CallService) {}
-  ngOnInit(): void {
-    this.callService
-      .getCallReport(this.callId())
-      .subscribe((data: ICallReport) => {
-        this.callReport.set(data);
-      });
-  }
-
   handleHide() {
     this.visible.set(false);
+  }
+
+  async ngOnInit(): Promise<void> {
+    this.callReport.set(
+      (await firstValueFrom(this.callService.getById(this.callId()!))).data,
+    );
   }
 
   getCallDuration(): string {
@@ -53,16 +52,6 @@ export class CallReport implements OnInit {
       link.download = `transcript-${report.id}.txt`;
       link.click();
       window.URL.revokeObjectURL(url);
-    }
-  }
-
-  downloadRecording(): void {
-    const report = this.callReport();
-    if (report?.recordingUrl) {
-      const link = document.createElement('a');
-      link.href = report.recordingUrl;
-      link.download = `recording-${report.id}.wav`;
-      link.click();
     }
   }
 }

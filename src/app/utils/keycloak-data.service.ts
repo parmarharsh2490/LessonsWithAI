@@ -1,34 +1,25 @@
 import { FactoryProvider, inject, Injectable } from '@angular/core';
 import Keycloak from 'keycloak-js';
-
 @Injectable({
   providedIn: 'root',
 })
 export class KeycloakDataService {
   private keycloak = inject(Keycloak);
 
-  getUser() {
+  getUserData() {
     return this.keycloak.loadUserProfile();
   }
-  setUserData(user: any) {
-    localStorage.setItem(
-      'user',
-      JSON.stringify({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        id: user.id,
-      }),
-    );
+
+  setUserData() {
+    localStorage.setItem('userId', this.keycloak.tokenParsed?.sub ?? '');
   }
 }
 
 export function myServiceFactory(): KeycloakDataService | null {
   if (typeof window !== 'undefined') {
-    // your condition
     return new KeycloakDataService();
   }
-  return null; // no service on SSR
+  return null;
 }
 
 export const KeycloakDataServiceProvider: FactoryProvider = {

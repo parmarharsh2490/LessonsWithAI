@@ -1,14 +1,19 @@
-import { Component, createComponent, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  createComponent,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { TableList } from '../../../components/table-list/table-list';
 import { PaginatorState } from 'primeng/paginator';
 import { IHeader } from '../../../components/table-list/model/table-list.modal';
 import { CallReport } from '../call-report/call-report';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
-import { ICallReportLists } from '../model/call.model';
-import { httpResource } from '@angular/common/http';
-import { IResponseData } from '../../../core/response/response-data';
-import { TOAST_MESSAGES } from '../../../core/response/resonse-message';
+import { ICallReport } from '../model/call.model';
 import { SEOService } from '../../../services/seo.service';
+import { toSignal } from '../../../core/base/safe-signal';
+import { CallService } from '../service/call.service';
 @Component({
   selector: 'app-call-history-lists',
   imports: [TableList],
@@ -16,48 +21,27 @@ import { SEOService } from '../../../services/seo.service';
   styleUrl: './call-history-lists.scss',
 })
 export class CallHistoryLists implements OnInit {
-  headerList = signal<IHeader[]>([
+  private service = inject(CallService);
+  headerList = signal<IHeader<ICallReport>[]>([
     {
       label: 'Time',
-      key: 'createdAt',
+      key: 'startedAt',
+      type: 'date',
     },
     {
-      label: 'Call Duration',
-      key: 'callDuration',
+      label: 'Duration',
+      key: 'duration',
     },
     {
-      label: 'Call Outcome',
-      key: 'callOutcome',
+      label: 'Status',
+      key: 'status',
     },
     {
-      label: 'Call Sentiment',
-      key: 'callSentiment',
-    },
-    {
-      label: 'FollowUp Status',
-      key: 'followUpStatus',
-    },
-    {
-      label: 'Objective Achievement',
-      key: 'objectiveAchievement',
-    },
-    {
-      label: 'Disconnection Reason',
-      key: 'disconnectionReason',
-    },
-    {
-      label: 'Call Status',
-      key: 'callStatus',
+      label: 'Cost',
+      key: 'cost',
     },
   ]);
-
-  callHistoryResource = httpResource<IResponseData<ICallReportLists[]>>(() => ({
-    url: 'https://dummyjson.com/products',
-    context: TOAST_MESSAGES(
-      'Successfully fetched the data',
-      'Error fetching the data',
-    ),
-  }));
+  dataList = toSignal(this.service.getAll());
 
   constructor(
     private lazyLoadComponentService: LazyLoadComponentService<CallReport>,
@@ -73,14 +57,14 @@ export class CallHistoryLists implements OnInit {
     event = { ...event };
   }
 
-  async onRowClick(event: ICallReportLists) {
+  async onRowClick(event: ICallReport) {
     const CallReport = await import('../call-report/call-report').then(
       (m) => m.CallReport,
     );
     this.lazyLoadComponentService.componentRef = createComponent(CallReport, {
       environmentInjector: this.lazyLoadComponentService.injector,
     });
-    this.lazyLoadComponentService.componentRef.setInput('callId', event._id);
+    this.lazyLoadComponentService.componentRef.setInput('callId', event.id);
     this.lazyLoadComponentService.applicationRef.attachView(
       this.lazyLoadComponentService.componentRef.hostView,
     );

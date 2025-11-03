@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-center align-items-center w-100">
   <p-button
-    label="Start Call"
+    [label]="vapiService.status() === 'PROCESSING' ? 'End Call' : 'Start Call'"
     (click)="startCall()"
     class="full-width-btn"
-    [disabled]="!assistantId()"
+    [disabled]="!vapiService.selectedAssistant()"
   ></p-button>
 </div>

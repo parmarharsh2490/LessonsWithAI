@@ -1,25 +1,25 @@
 <div>
   <p-select
     [appendTo]="'body'"
-    [options]="remainingKnowledgeBaseList()"
-    optionLabel="fileName"
+    [options]="remainingDocumentList()"
+    optionLabel="name"
     placeholder="Select Document"
     class="w-full"
     #selectKnowledgeBase
-    (onChange)="onChange($event)"
+    (onChange)="onChange($event, selectKnowledgeBase)"
   />
 </div>
 
 <div>
-  @for (item of knowledgeBaseList(); track $index) {
-    @if (assistantDataService.assistant().toolIds.includes(item._id)) {
+  @for (item of documentList(); track $index) {
+    @if (assistant()?.knowledgebase?.fileIds?.includes(item.documentId)) {
       <div
         class="bg-card-primary rounded-md border border-primary p-2 px-4 flex align-items-center justify-content-between my-2"
       >
         <div class="d-flex gap-2 align-items-center">
-          <h5>{{ item.fileName }}</h5>
+          <h5>{{ item.name }}</h5>
         </div>
-        <div (click)="onDelete(item); selectKnowledgeBase.clear()" class="">
+        <div (click)="onDelete(item)" class="">
           <i class="pi pi-trash delete-icon"></i>
         </div>
       </div>

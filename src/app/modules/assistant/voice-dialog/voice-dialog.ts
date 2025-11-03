@@ -1,12 +1,19 @@
-import { Component, computed, OnInit, output, signal } from '@angular/core';
-import { VOICES } from '../constant/voices';
+import {
+  Component,
+  computed,
+  inject,
+  OnInit,
+  output,
+  signal,
+} from '@angular/core';
 import { IVoice } from '../model/voice.model';
 import { Dialog } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { InputText } from 'primeng/inputtext';
 import { Button } from 'primeng/button';
-import { AssistantDataService } from '../service/assistant-data.service';
+import { toSignal } from '../../../core/base/safe-signal';
+import { CommonList } from '../../../core/common-list/common-list';
 
 @Component({
   selector: 'app-voice-dialog',
@@ -15,6 +22,8 @@ import { AssistantDataService } from '../service/assistant-data.service';
   styleUrl: './voice-dialog.scss',
 })
 export class VoiceDialog implements OnInit {
+  private commonList = inject(CommonList);
+  onSubmit = output<IVoice>();
   genders = signal<string[]>([]);
   accents = signal<string[]>([]);
   tones = signal<string[]>([]);
@@ -25,8 +34,9 @@ export class VoiceDialog implements OnInit {
   selectedVoice = signal<IVoice | undefined>(undefined);
   visible = signal<boolean>(true);
   onHide = output<void>();
-  voices = computed(() => {
-    return VOICES.filter((voice: IVoice) => {
+  voices = toSignal<IVoice>(this.commonList.getVoices());
+  filteredvoices = computed(() => {
+    return this.voices().filter((voice: IVoice) => {
       let flag = true;
       if (this.selectedGender() !== 'All') {
         flag = voice.gender === this.selectedGender();
@@ -55,24 +65,26 @@ export class VoiceDialog implements OnInit {
     });
   });
 
-  constructor(private assistantDataService: AssistantDataService) {}
   ngOnInit(): void {
     this.genders.set(
-      Array.from(['All', ...new Set(VOICES.map((voice) => voice.gender))]),
+      Array.from([
+        'All',
+        ...new Set(this.voices().map((voice) => voice.gender)),
+      ]),
     );
     this.accents.set(
-      Array.from(['All', ...new Set(VOICES.map((voice) => voice.accent))]),
+      Array.from([
+        'All',
+        ...new Set(this.voices().map((voice) => voice.accent)),
+      ]),
     );
     this.tones.set(
-      Array.from(['All', ...new Set(VOICES.map((voice) => voice.tone))]),
+      Array.from(['All', ...new Set(this.voices().map((voice) => voice.tone))]),
     );
   }
 
-  onSubmit() {
-    this.assistantDataService.updateAssistant({
-      voice: this.selectedVoice()?.id ?? '',
-    });
-    this.onHide.emit();
+  submit() {
+    this.onSubmit.emit(this.selectedVoice()!);
   }
 
   onCancel() {

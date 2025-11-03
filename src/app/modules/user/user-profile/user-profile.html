@@ -7,14 +7,14 @@
           [label]="'First Name'"
           [type]="'text'"
           [placeholder]="'Enter your first name'"
-          [key]="'first_name'"
+          [key]="'firstName'"
         />
         <app-input
           [formData]="formData()"
           [label]="'Last Name'"
           [type]="'text'"
           [placeholder]="'Enter your first name'"
-          [key]="'last_name'"
+          [key]="'lastName'"
         />
         <app-input
           [formData]="formData()"
@@ -27,7 +27,12 @@
     </ng-template>
     <ng-template #footer>
       <div class="mt-1">
-        <p-button label="Save" class="full-width-btn" (click)="onSubmit()" />
+        <p-button
+          [label]="isLoading() ? 'Saving...' : 'Save'"
+          [disabled]="isLoading()"
+          class="full-width-btn"
+          (click)="onSubmit()"
+        />
       </div>
     </ng-template>
   </p-card>

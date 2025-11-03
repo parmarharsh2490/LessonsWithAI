@@ -31,9 +31,6 @@ export class App implements OnInit {
     }
     if (!this.commonService.isBrowser || typeof window === 'undefined') return;
     const keycloakDataService = this.injector.get(KeycloakDataService);
-    console.log('keycloakDataService', keycloakDataService);
-    keycloakDataService.getUser().then((user) => {
-      keycloakDataService.setUserData(user);
-    });
+    keycloakDataService.setUserData();
   }
 }

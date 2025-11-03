@@ -22,13 +22,14 @@ import { Toast } from './core/toast/service/toast';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { MyPreset } from '../assets/theme/preset.config';
 import { toastInterceptor } from './core/interceptor/toast-interceptor';
-import { authInterceptor } from './modules/auth/auth-interceptor';
 import { GloblaErrorHandler } from './core/error/global-error-handler';
 import { includeBearerTokenInterceptor } from 'keycloak-angular';
 import { keyCloackProviders } from './utils/keycloak-provider';
+import { TitleCasePipe } from '@angular/common';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    TitleCasePipe,
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
@@ -43,7 +44,6 @@ export const appConfig: ApplicationConfig = {
       withFetch(),
       withInterceptors([
         toastInterceptor,
-        authInterceptor,
         ...(typeof window !== 'undefined'
           ? [includeBearerTokenInterceptor]
           : []),

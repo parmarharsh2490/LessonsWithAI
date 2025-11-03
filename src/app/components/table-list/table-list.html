@@ -40,12 +40,26 @@
                 {{ data[header.key] | date: "dd/MM/yyyy" }}
               </td>
             } @else {
-              <td
-                (click)="onRowClick.emit(data)"
-                [class]="isRowClick() ? 'cursor-pointer' : 'cursor-default'"
-              >
-                {{ data[header.key] }}
-              </td>
+              @if (header.hyperlink) {
+                <td
+                  (click)="
+                    onChange.emit({
+                      data: data,
+                      event: { type: 'hyperlink', key: header.key },
+                    })
+                  "
+                  class="cursor-pointer text-decoration-underline"
+                >
+                  {{ data[header.key] }}
+                </td>
+              } @else {
+                <td
+                  (click)="onRowClick.emit(data)"
+                  [class]="isRowClick() ? 'cursor-pointer' : 'cursor-default'"
+                >
+                  {{ data[header.key] }}
+                </td>
+              }
             }
           }
           @if (showEdit()) {
