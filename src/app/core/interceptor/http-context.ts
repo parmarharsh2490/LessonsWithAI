@@ -6,3 +6,7 @@ export const MODULE_NAME = (moduleName: string) =>
 
 export const SKIP_TOAST_TOKEN = new HttpContextToken<boolean>(() => false);
 export const SKIP_TOAST = () => new HttpContext().set(SKIP_TOAST_TOKEN, true);
+
+export const SKIP_LOADING_TOKEN = new HttpContextToken<boolean>(() => false);
+export const SKIP_LOADING = () =>
+  new HttpContext().set(SKIP_LOADING_TOKEN, true);
