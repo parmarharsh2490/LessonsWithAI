@@ -10,3 +10,7 @@ export const SKIP_TOAST = () => new HttpContext().set(SKIP_TOAST_TOKEN, true);
 export const SKIP_LOADING_TOKEN = new HttpContextToken<boolean>(() => false);
 export const SKIP_LOADING = () =>
   new HttpContext().set(SKIP_LOADING_TOKEN, true);
+
+export const SKIP_CACHING_TOKEN = new HttpContextToken<boolean>(() => false);
+export const SKIP_CACHING = () =>
+  new HttpContext().set(SKIP_CACHING_TOKEN, true);

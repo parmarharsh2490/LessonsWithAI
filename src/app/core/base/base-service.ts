@@ -16,12 +16,18 @@ export class BaseService<T> implements IBaseService<T> {
   getById(id: string): Observable<IResponseData<T>> {
     return this.http.get<IResponseData<T>>(
       environment.baseUrl + this.getModuleName() + '/' + id,
+      {
+        context: MODULE_NAME(this.getModuleName()),
+      },
     );
   }
 
   getAll(): Observable<IResponseData<T>> {
     return this.http.get<IResponseData<T>>(
       environment.baseUrl + this.getModuleName(),
+      {
+        context: MODULE_NAME(this.getModuleName()),
+      },
     );
   }
 

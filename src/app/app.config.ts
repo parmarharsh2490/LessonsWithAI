@@ -27,6 +27,7 @@ import { GloblaErrorHandler } from './core/error/global-error-handler';
 // import { keyCloackProviders } from './utils/keycloak-provider';
 import { TitleCasePipe } from '@angular/common';
 import { loadingInterceptor } from './core/interceptor/loading-interceptor';
+import { cachingInterceptor } from './core/interceptor/caching-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -46,6 +47,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([
         toastInterceptor,
         loadingInterceptor,
+        cachingInterceptor,
         // ...(typeof window !== 'undefined'
         //   ? [includeBearerTokenInterceptor]
         //   : []),

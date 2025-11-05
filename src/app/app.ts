@@ -3,13 +3,14 @@ import { RouterOutlet } from '@angular/router';
 import { Toast } from 'primeng/toast';
 import { SEOConfigService } from './services/seo-config.service';
 import { CommonService } from './services/common-service';
+import { CacheDashboard } from './components/cache-dashboard/cache-dashboard';
 // import {
 //   KeycloakDataService,
 //   KeycloakDataServiceProvider,
 // } from './utils/keycloak-data.service';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Toast],
+  imports: [RouterOutlet, Toast, CacheDashboard],
   // providers: [KeycloakDataServiceProvider],
   providers: [],
   templateUrl: './app.html',

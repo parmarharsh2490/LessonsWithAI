@@ -1,0 +1,47 @@
+<div class="position-absolute bottom-0 end-0 m-2">
+  @if (!isExpanded()) {
+    <p-button
+      (click)="expand()"
+      class="full-width-btn"
+      [icon]="isExpanded() ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"
+    ></p-button>
+  }
+</div>
+@if (isExpanded()) {
+  <div
+    class="bg-card-primary w-100 position-absolute bottom-0 rounded-md border border-primary p-2 px-4"
+  >
+    <div
+      class="d-flex justify-content-between align-items-center border-bottom border-primary pb-2"
+    >
+      <h5>Cache List</h5>
+      <i class="pi pi-times" (click)="expand()"></i>
+    </div>
+    <div class="d-flex flex-column gap-2">
+      <p-table [value]="cacheService.getAll()">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Key</th>
+            <th>Data</th>
+            <th>Expires At</th>
+            <th>Delete</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>{{ item.key }}</td>
+            <td>{{ item.data | json }}</td>
+            <td>{{ item.expiresAt | date: "dd/MM/yyyy HH:mm:ss" }}</td>
+            <td
+              (click)="cacheService.invalidate(item.key)"
+              class="cursor-pointer"
+              style="width: 50px; text-align: center"
+            >
+              <i class="pi pi-trash"></i>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+}
