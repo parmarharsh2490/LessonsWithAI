@@ -11,7 +11,7 @@ import { UserProfileService } from '../service/user-profile.service';
 import { Input } from '../../../components/ui/input/input';
 import { SEOService } from '../../../services/seo.service';
 import { CommonService } from '../../../services/common-service';
-// import { KeycloakDataService } from '../../../utils/keycloak-data.service';
+import { KeycloakDataService } from '../../../utils/keycloak-data.service';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -21,7 +21,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrl: './user-profile.scss',
 })
 export class UserProfile implements OnInit {
-  // private keycloakDataService = inject(KeycloakDataService);
+  private keycloakDataService = inject(KeycloakDataService);
   private service = inject(UserProfileService);
   private seoService = inject(SEOService);
   private commonService = inject(CommonService);
@@ -42,18 +42,18 @@ export class UserProfile implements OnInit {
     // Set SEO meta tags for user profile page
     this.seoService.updateSEO(this.seoService.getProfileSEO());
     if (!this.commonService.isBrowser) return;
-    // this.setData();
+    this.setData();
   }
 
   setData() {
-    // this.keycloakDataService.getUserData().then((userData) => {
-    //   this.formData().patchValue({
-    //     firstName: userData.firstName,
-    //     lastName: userData.lastName,
-    //     email: userData.email,
-    //     id: userData.id,
-    //   });
-    // });
+    this.keycloakDataService.getUserData().then((userData) => {
+      this.formData().patchValue({
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        email: userData.email,
+        id: userData.id,
+      });
+    });
   }
   onSubmit() {
     this.isLoading.set(true);

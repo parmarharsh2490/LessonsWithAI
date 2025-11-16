@@ -23,8 +23,8 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { MyPreset } from '../assets/theme/preset.config';
 import { toastInterceptor } from './core/interceptor/toast-interceptor';
 import { GloblaErrorHandler } from './core/error/global-error-handler';
-// import { includeBearerTokenInterceptor } from 'keycloak-angular';
-// import { keyCloackProviders } from './utils/keycloak-provider';
+import { includeBearerTokenInterceptor } from 'keycloak-angular';
+import { keyCloackProviders } from './utils/keycloak-provider';
 import { TitleCasePipe } from '@angular/common';
 import { loadingInterceptor } from './core/interceptor/loading-interceptor';
 import { cachingInterceptor } from './core/interceptor/caching-interceptor';
@@ -48,9 +48,9 @@ export const appConfig: ApplicationConfig = {
         toastInterceptor,
         loadingInterceptor,
         cachingInterceptor,
-        // ...(typeof window !== 'undefined'
-        //   ? [includeBearerTokenInterceptor]
-        //   : []),
+        ...(typeof window !== 'undefined'
+          ? [includeBearerTokenInterceptor]
+          : []),
       ]),
     ),
     // Only provide Keycloak in browser environment
