@@ -54,7 +54,7 @@ export const appConfig: ApplicationConfig = {
       ]),
     ),
     // Only provide Keycloak in browser environment
-    // ...(typeof window !== 'undefined' ? keyCloackProviders() : []),
+    ...(typeof window !== 'undefined' ? keyCloackProviders() : []),
     Toast,
     {
       provide: ErrorHandler,
