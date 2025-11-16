@@ -4,9 +4,17 @@ import {
 } from '@angular/core/rxjs-interop';
 import { catchError, concat, map, Observable, of, shareReplay } from 'rxjs';
 import { IResponseData } from '../response/response-data';
-import { CreateSignalOptions, effect, ValueEqualityFn } from '@angular/core';
+import {
+  CreateSignalOptions,
+  effect,
+  inject,
+  ValueEqualityFn,
+} from '@angular/core';
 import { signal } from '@angular/core';
+import { CommonService } from '../../services/common-service';
 export const toSignal = <T>(observable: Observable<IResponseData<T>>) => {
+  const commonService = inject(CommonService);
+  if (!commonService.isBrowser) return signal([]);
   const Signal = toWritableSignal(
     observable.pipe(
       map((data) => data.dataList),
