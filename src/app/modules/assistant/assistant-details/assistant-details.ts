@@ -129,9 +129,9 @@ export class AssistantDetails {
       assistant?.knowledgebase?.id && assistant?.knowledgebase?.toolId;
     // 1 => delete if empty
     if (
-      knowledgebasePayload.fileIds.length === 0 &&
+      knowledgebasePayload?.fileIds?.length === 0 &&
       existKnowlegebase &&
-      this.loadAssistantKnowledgeBase.nativeElement?.children?.length != 0
+      this.loadAssistantKnowledgeBase?.nativeElement?.children?.length != 0
     ) {
       await firstValueFrom(
         this.knowledgeBaseService.delete(
@@ -142,7 +142,7 @@ export class AssistantDetails {
       return undefined;
     }
 
-    if (knowledgebasePayload.fileIds.length === 0) return undefined;
+    if (knowledgebasePayload?.fileIds?.length === 0) return undefined;
 
     let action: keyof IBaseServiceActions = !existKnowlegebase
       ? 'save'
