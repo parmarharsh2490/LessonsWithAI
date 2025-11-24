@@ -37,6 +37,7 @@ export class AssistantKnowledgeBase implements OnInit {
   });
 
   async ngOnInit(): Promise<void> {
+    if (!this.assistant()?.id) return;
     try {
       this.tool.set(
         (
