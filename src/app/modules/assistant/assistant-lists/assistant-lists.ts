@@ -15,6 +15,7 @@ import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-assistant-lists',
   imports: [TableList],
+  providers: [LazyLoadComponentService],
   templateUrl: './assistant-lists.html',
   styleUrl: './assistant-lists.scss',
 })

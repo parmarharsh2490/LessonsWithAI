@@ -5,6 +5,7 @@ import {
   model,
   output,
   signal,
+  viewChild,
   ViewChild,
 } from '@angular/core';
 import { Dialog } from 'primeng/dialog';
@@ -19,6 +20,7 @@ import { Button } from 'primeng/button';
 import { KnowledgebaseService } from '../../knowledgebase/service/knowledgebase.service';
 import { IKnowledgeBase } from '../../knowledgebase/model/knowledgebase.model';
 import { IBaseServiceActions } from '../../../core/base/base-service-actions';
+import { Toast } from '../../../core/toast/service/toast';
 
 @Component({
   selector: 'app-assistant-details',
@@ -39,6 +41,7 @@ import { IBaseServiceActions } from '../../../core/base/base-service-actions';
 export class AssistantDetails {
   assistant = model<IAssistant | undefined>(undefined);
   loading = signal<boolean>(false);
+  assistantOverview = viewChild<AssistantOverview>('assistantOverview');
   @ViewChild('loadAssistantKnowledgeBase')
   loadAssistantKnowledgeBase!: ElementRef;
   onHide = output<void>();
@@ -47,6 +50,7 @@ export class AssistantDetails {
     private lazyLoadComponentService: LazyLoadComponentService<AssistantKnowledgeBase>,
     private service: AssistantService,
     private knowledgeBaseService: KnowledgebaseService,
+    private toastService: Toast,
   ) {}
 
   handleHide(): void {
@@ -98,6 +102,11 @@ export class AssistantDetails {
   ];
 
   async saveAssistant() {
+    this.assistantOverview()?.formData.markAllAsTouched();
+    if (this.assistantOverview()?.formData.invalid) {
+      this.toastService.showErrorToast('Please fill all the required fields');
+      return;
+    }
     this.assistant.set({
       ...this.assistant()!,
       userId: localStorage.getItem('userId')!,
@@ -115,6 +124,7 @@ export class AssistantDetails {
         toolId: toolId || undefined,
       });
       await firstValueFrom(this.service[action](this.assistant()!));
+      this.handleHide();
     } finally {
       // this.handleHide();
       this.loading.set(false);
@@ -123,7 +133,11 @@ export class AssistantDetails {
 
   async handleKnowledgeBaseOperation(): Promise<string | undefined> {
     let assistant = this.assistant()!;
-    let knowledgebasePayload: IKnowledgeBase = assistant?.knowledgebase!;
+    let knowledgebasePayload: IKnowledgeBase = {
+      ...assistant?.knowledgebase!,
+      assistantId: assistant?.id!,
+      description: 'Assistant Knowledge Base',
+    };
 
     let existKnowlegebase =
       assistant?.knowledgebase?.id && assistant?.knowledgebase?.toolId;
@@ -142,7 +156,7 @@ export class AssistantDetails {
       return undefined;
     }
 
-    if (knowledgebasePayload?.fileIds?.length === 0) return undefined;
+    if (!knowledgebasePayload?.fileIds) return undefined;
 
     let action: keyof IBaseServiceActions = !existKnowlegebase
       ? 'save'

@@ -24,6 +24,7 @@
       <p-tabpanels>
         <p-tabpanel value="Overview">
           <app-assistant-overview
+            #assistantOverview
             [assistant]="assistant()"
             (onAssistantChange)="onAssistantChange($event)"
           ></app-assistant-overview>

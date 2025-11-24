@@ -2,6 +2,7 @@ import {
   HttpEventType,
   HttpInterceptorFn,
   HttpResponse,
+  HttpStatusCode,
 } from '@angular/common/http';
 import { MODULE_NAME_TOKEN, SKIP_CACHING_TOKEN } from './http-context';
 import { CachingService } from '../services/caching.service';
@@ -15,7 +16,7 @@ export const cachingInterceptor: HttpInterceptorFn = (req, next) => {
   let skipCaching = req.context.get(SKIP_CACHING_TOKEN);
   let moduleName = req.context.get(MODULE_NAME_TOKEN) as CachingKey;
 
-  if (!skipCaching && moduleName) {
+  if (!skipCaching && moduleName && req.method === 'GET') {
     if (cacheService.get(moduleName)) {
       return of(
         new HttpResponse({
@@ -34,5 +35,24 @@ export const cachingInterceptor: HttpInterceptorFn = (req, next) => {
     }
   }
 
-  return next(req);
+  return next(req).pipe(
+    tap((res) => {
+      if (
+        res.type === HttpEventType.Response &&
+        (res.status === HttpStatusCode.Ok ||
+          res.status === HttpStatusCode.Created) &&
+        moduleName
+      ) {
+        if (cacheService.get(moduleName)) {
+          cacheService.invalidate(moduleName);
+        }
+        const id = (res.body as any)?.data?.id;
+        if (moduleName && id && cacheService.get(moduleName + '/' + id)) {
+          cacheService.invalidate(
+            moduleName + '/' + (res.body as any)?.data?.id,
+          );
+        }
+      }
+    }),
+  );
 };

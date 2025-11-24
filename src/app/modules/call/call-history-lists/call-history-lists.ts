@@ -17,6 +17,7 @@ import { CallService } from '../service/call.service';
 @Component({
   selector: 'app-call-history-lists',
   imports: [TableList],
+  providers: [LazyLoadComponentService],
   templateUrl: './call-history-lists.html',
   styleUrl: './call-history-lists.scss',
 })

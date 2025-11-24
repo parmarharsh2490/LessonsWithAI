@@ -19,6 +19,7 @@ import { CommonService } from '../../../services/common-service';
 @Component({
   selector: 'app-knowledgebase-list',
   imports: [TableList],
+  providers: [LazyLoadComponentService],
   templateUrl: './knowledgebase-list.html',
   styleUrl: './knowledgebase-list.scss',
 })

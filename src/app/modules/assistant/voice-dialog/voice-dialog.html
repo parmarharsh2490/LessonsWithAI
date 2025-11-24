@@ -2,7 +2,8 @@
   header="Select Voice"
   [draggable]="false"
   [modal]="true"
-  [(visible)]="visible"
+  [visible]="visible()"
+  (visibleChange)="visible.set($event)"
   (onHide)="onHide.emit()"
   [style]="{ width: '50rem' }"
 >
@@ -13,7 +14,8 @@
       <input
         type="search"
         pInputText
-        [(ngModel)]="searchTerm"
+        [ngModel]="searchTerm()"
+        (ngModelChange)="searchTerm.set($event)"
         placeholder="Search Voice"
       />
     </div>
@@ -21,7 +23,8 @@
       <p-select
         [appendTo]="'body'"
         [options]="genders()"
-        [(ngModel)]="selectedGender"
+        [ngModel]="selectedGender()"
+        (ngModelChange)="selectedGender.set($event)"
         placeholder="Select a City"
         class="w-full"
       />
@@ -30,7 +33,8 @@
       <p-select
         [appendTo]="'body'"
         [options]="accents()"
-        [(ngModel)]="selectedAccent"
+        [ngModel]="selectedAccent()"
+        (ngModelChange)="selectedAccent.set($event)"
         placeholder="Select a City"
         class="w-full"
       />
@@ -39,7 +43,8 @@
       <p-select
         [appendTo]="'body'"
         [options]="tones()"
-        [(ngModel)]="selectedTone"
+        [ngModel]="selectedTone()"
+        (ngModelChange)="selectedTone.set($event)"
         placeholder="Select a City"
         class="w-full"
       />

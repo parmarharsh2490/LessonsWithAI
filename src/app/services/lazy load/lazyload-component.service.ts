@@ -6,9 +6,7 @@ import {
   Injectable,
 } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class LazyLoadComponentService<T> {
   injector = inject(EnvironmentInjector);
   applicationRef = inject(ApplicationRef);

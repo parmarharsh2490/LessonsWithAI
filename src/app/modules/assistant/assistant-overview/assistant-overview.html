@@ -1,6 +1,6 @@
-<div [formGroup]="formData()" class="d-flex flex-column gap-2">
+<div [formGroup]="formData" class="d-flex flex-column gap-2">
   <app-input
-    [formData]="formData()"
+    [formData]="formData"
     [key]="'name'"
     [label]="'Name'"
     [type]="'text'"
@@ -12,10 +12,13 @@
       [appendTo]="'body'"
       [options]="modelList()"
       [optionLabel]="'name'"
+      formControlName="model"
       [ngModel]="assistant()?.model"
       (onChange)="assistantModelChange($event)"
-      [ngModelOptions]="{ standalone: true }"
     ></p-select>
+    @if (formData.get("model")?.errors && formData.get("model")?.touched) {
+      <p-message severity="error"> Model is required </p-message>
+    }
   </div>
   <div class="d-flex flex-column gap-2">
     <label for="voice">Select Voice</label>
@@ -25,5 +28,8 @@
     >
       {{ assistant()?.voice?.name }}
     </div>
+    @if (formData.get("voice")?.errors && formData.get("voice")?.touched) {
+      <p-message severity="error"> Voice is required </p-message>
+    }
   </div>
 </div>
