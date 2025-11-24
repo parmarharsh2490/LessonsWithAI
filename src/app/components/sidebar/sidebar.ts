@@ -14,9 +14,9 @@ export class Sidebar implements OnInit, AfterViewInit {
   protected visible = signal<boolean>(false);
   sidebarItems: SidebarItem[] = [
     { label: 'Home', icon: 'pi pi-home', route: '/' },
-    { label: 'Call History', icon: 'pi pi-phone', route: '/call-history' },
     { label: 'Assistants', icon: 'pi pi-users', route: '/assistants' },
     { label: 'Knowledge Base', icon: 'pi pi-book', route: '/knowledge-base' },
+    { label: 'Call History', icon: 'pi pi-phone', route: '/call-history' },
     { label: 'Profile', icon: 'pi pi-user', route: '/profile' },
   ];
   constructor(public router: Router) {}
