@@ -1,4 +1,10 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CachingService } from '../../core/services/caching.service';
 import { Button } from 'primeng/button';
 import { DatePipe, JsonPipe } from '@angular/common';
@@ -10,6 +16,7 @@ import { CommonService } from '../../services/common-service';
   imports: [Button, DatePipe, JsonPipe, TableModule],
   templateUrl: './cache-dashboard.html',
   styleUrl: './cache-dashboard.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CacheDashboard implements OnInit {
   cacheService = inject(CachingService);

@@ -1,10 +1,14 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpContext } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { IBaseService } from './base-service.model';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IResponseData } from '../response/response-data';
 import { environment } from '../../../environment/environment';
-import { MODULE_NAME } from '../interceptor/http-context';
+import {
+  MODULE_ID_TOKEN,
+  MODULE_NAME,
+  MODULE_NAME_TOKEN,
+} from '../interceptor/http-context';
 import { CachingService } from '../services/caching.service';
 
 export class BaseService<T> implements IBaseService<T> {
@@ -18,7 +22,9 @@ export class BaseService<T> implements IBaseService<T> {
     return this.http.get<IResponseData<T>>(
       environment.baseUrl + this.getModuleName() + '/' + id,
       {
-        context: MODULE_NAME(this.getModuleName() + '/' + id.toString()),
+        context: new HttpContext()
+          .set(MODULE_NAME_TOKEN, this.getModuleName())
+          .set(MODULE_ID_TOKEN, id.toString()),
       },
     );
   }
@@ -37,29 +43,21 @@ export class BaseService<T> implements IBaseService<T> {
       environment.baseUrl + this.getModuleName() + '/update',
       data,
       {
-        context: MODULE_NAME(this.getModuleName()),
+        context: new HttpContext()
+          .set(MODULE_NAME_TOKEN, this.getModuleName())
+          .set(MODULE_ID_TOKEN, (data as any).id.toString()),
       },
     );
   }
 
   save(data: T): Observable<IResponseData<T>> {
-    return this.http
-      .post<IResponseData<T>>(
-        environment.baseUrl + this.getModuleName() + '/save',
-        data,
-        {
-          context: MODULE_NAME(this.getModuleName()),
-        },
-      )
-      .pipe(
-        tap((res: IResponseData<T>) => {
-          this.cacheService.invalidate(this.getModuleName());
-          const id = (res.data as any)?.id;
-          if (id) {
-            this.cacheService.invalidate(this.getModuleName() + '/' + id);
-          }
-        }),
-      );
+    return this.http.post<IResponseData<T>>(
+      environment.baseUrl + this.getModuleName() + '/save',
+      data,
+      {
+        context: MODULE_NAME(this.getModuleName()),
+      },
+    );
   }
 
   delete(id: string, secondId?: string): Observable<IResponseData<T>> {
@@ -68,7 +66,9 @@ export class BaseService<T> implements IBaseService<T> {
       : `${environment.baseUrl}${this.getModuleName()}/${id}`;
 
     return this.http.delete<IResponseData<T>>(url, {
-      context: MODULE_NAME(this.getModuleName()),
+      context: new HttpContext()
+        .set(MODULE_NAME_TOKEN, this.getModuleName())
+        .set(MODULE_ID_TOKEN, id.toString()),
     });
   }
 }
