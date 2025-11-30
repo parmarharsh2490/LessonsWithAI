@@ -1,19 +1,10 @@
-import {
-  Component,
-  computed,
-  inject,
-  OnInit,
-  output,
-  signal,
-} from '@angular/core';
+import { Component, computed, OnInit, output, signal } from '@angular/core';
 import { IVoice } from '../model/voice.model';
 import { Dialog } from 'primeng/dialog';
 import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { InputText } from 'primeng/inputtext';
 import { Button } from 'primeng/button';
-import { toSignal } from '../../../core/base/safe-signal';
-import { CommonList } from '../../../core/common-list/common-list';
 
 @Component({
   selector: 'app-voice-dialog',
@@ -22,7 +13,6 @@ import { CommonList } from '../../../core/common-list/common-list';
   styleUrl: './voice-dialog.scss',
 })
 export class VoiceDialog implements OnInit {
-  private commonList = inject(CommonList);
   onSubmit = output<IVoice>();
   genders = signal<string[]>([]);
   accents = signal<string[]>([]);
@@ -34,7 +24,7 @@ export class VoiceDialog implements OnInit {
   selectedVoice = signal<IVoice | undefined>(undefined);
   visible = signal<boolean>(true);
   onHide = output<void>();
-  voices = toSignal<IVoice>(this.commonList.getVoices());
+  voices = signal<IVoice[]>([]);
   filteredvoices = computed(() => {
     return this.voices().filter((voice: IVoice) => {
       let flag = true;

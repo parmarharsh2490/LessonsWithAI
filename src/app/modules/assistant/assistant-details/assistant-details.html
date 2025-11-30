@@ -1,14 +1,13 @@
 <p-dialog
-  header="Header"
+  header="Assistant Details"
   [(visible)]="visible"
   (onHide)="handleHide()"
   [modal]="true"
-  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '80vw', maxWidth: '40rem' }"
   [draggable]="false"
   [resizable]="false"
 >
-  <div class="card">
+  <div>
     <p-tabs (valueChange)="onTabChange($event)" value="Overview">
       <p-tablist>
         @for (tab of tabs; track $index) {
@@ -34,11 +33,14 @@
         </p-tabpanel>
       </p-tabpanels>
     </p-tabs>
-    <div class="w-100 d-flex justify-content-end p-tabpanels">
+    <div
+      class="w-full flex flex-col sm:flex-row justify-end gap-2 sm:gap-0 p-tabpanels mt-4"
+    >
       <p-button
         (onClick)="saveAssistant()"
         [disabled]="loading()"
         [label]="loading() ? 'Saving...' : 'Submit'"
+        class="w-full sm:w-auto"
       />
     </div>
   </div>

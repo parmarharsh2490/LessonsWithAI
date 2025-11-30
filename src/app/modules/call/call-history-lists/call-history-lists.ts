@@ -12,7 +12,6 @@ import { CallReport } from '../call-report/call-report';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
 import { ICallReport } from '../model/call.model';
 import { SEOService } from '../../../services/seo.service';
-import { toSignal } from '../../../core/base/safe-signal';
 import { CallService } from '../service/call.service';
 @Component({
   selector: 'app-call-history-lists',
@@ -42,7 +41,7 @@ export class CallHistoryLists implements OnInit {
       key: 'cost',
     },
   ]);
-  dataList = toSignal(this.service.getAll());
+  dataList = this.service.getAllData();
 
   constructor(
     private lazyLoadComponentService: LazyLoadComponentService<CallReport>,

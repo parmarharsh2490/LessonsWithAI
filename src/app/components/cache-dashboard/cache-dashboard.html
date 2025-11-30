@@ -1,44 +1,58 @@
 @if (showCacheDashboard()) {
-  <div class="position-absolute bottom-0 end-0 m-2">
+  <div class="absolute bottom-0 right-0 m-2 sm:m-4">
     @if (!isExpanded()) {
       <p-button
         (click)="expand()"
         class="full-width-btn"
         [icon]="isExpanded() ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"
+        [size]="'small'"
       ></p-button>
     }
   </div>
   @if (isExpanded()) {
     <div
-      class="bg-card-primary w-100 position-absolute bottom-0 rounded-md border border-primary p-2 px-4"
+      class="bg-card-primary w-full sm:w-auto sm:min-w-[400px] sm:max-w-[600px] absolute bottom-0 left-0 sm:left-auto sm:right-0 rounded-t-md sm:rounded-md border border-primary p-3 sm:p-4 max-h-[80vh] overflow-hidden flex flex-col"
     >
       <div
-        class="d-flex justify-content-between align-items-center border-bottom border-primary pb-2"
+        class="flex justify-between items-center border-b border-primary pb-2 sm:pb-3 mb-2 sm:mb-3"
       >
-        <h5>Cache List</h5>
-        <i class="pi pi-times" (click)="expand()"></i>
+        <h5 class="text-sm sm:text-base font-semibold">Cache List</h5>
+        <i
+          class="pi pi-times cursor-pointer text-base sm:text-lg"
+          (click)="expand()"
+        ></i>
       </div>
-      <div class="d-flex flex-column gap-2">
-        <p-table [value]="cacheService.getAll()">
+      <div class="flex flex-col gap-2 overflow-y-auto flex-1">
+        <p-table
+          [value]="cacheService.getAll()"
+          [scrollable]="true"
+          scrollHeight="400px"
+          [tableStyle]="{ minWidth: '100%' }"
+        >
           <ng-template pTemplate="header">
             <tr>
-              <th>Key</th>
-              <th>Data</th>
-              <th>Expires At</th>
-              <th>Delete</th>
+              <th class="text-xs sm:text-sm">Key</th>
+              <th class="text-xs sm:text-sm">Data</th>
+              <th class="text-xs sm:text-sm">Expires At</th>
+              <th class="text-xs sm:text-sm w-12 sm:w-16">Delete</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-item>
             <tr>
-              <td>{{ item.key }}</td>
-              <td>{{ item.data | json }}</td>
-              <td>{{ item.expiresAt | date: "dd/MM/yyyy HH:mm:ss" }}</td>
+              <td class="text-xs sm:text-sm break-all">{{ item.key }}</td>
+              <td
+                class="text-xs sm:text-sm break-all max-w-[150px] sm:max-w-none truncate"
+              >
+                {{ item.data | json }}
+              </td>
+              <td class="text-xs sm:text-sm whitespace-nowrap">
+                {{ item.expiresAt | date: "dd/MM/yyyy HH:mm:ss" }}
+              </td>
               <td
                 (click)="cacheService.invalidate(item.key)"
-                class="cursor-pointer"
-                style="width: 50px; text-align: center"
+                class="cursor-pointer text-center"
               >
-                <i class="pi pi-trash"></i>
+                <i class="pi pi-trash text-sm sm:text-base"></i>
               </td>
             </tr>
           </ng-template>

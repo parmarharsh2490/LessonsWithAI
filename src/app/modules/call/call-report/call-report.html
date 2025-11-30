@@ -7,30 +7,46 @@
   [draggable]="false"
   [resizable]="false"
 >
-  <div class="">
-    <div class="d-flex justify-content-start align-items-center mb-2">
-      <span>{{ callReport()?.startedAt | date: "dd/MM/yyyy HH:mm" }}</span>
-      <span>{{ callReport()?.type }}</span>
+  <div class="p-2 sm:p-4">
+    <div
+      class="flex flex-col sm:flex-row justify-start items-start sm:items-center gap-1 sm:gap-2 mb-3 sm:mb-4"
+    >
+      <span class="text-sm sm:text-base">{{
+        callReport()?.startedAt | date: "dd/MM/yyyy HH:mm"
+      }}</span>
+      <span class="text-sm sm:text-base">{{ callReport()?.type }}</span>
     </div>
-    <div>
-      <div class="d-flex align-items-center justify-content-between row">
-        <div class="d-flex flex-column gap-1 col-md-6">
-          <div>Assistant ID</div>
-          <span> {{ callReport()?.assistantId }} </span>
+    <div class="space-y-3 sm:space-y-4">
+      <div
+        class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4"
+      >
+        <div class="flex flex-col gap-1 flex-1">
+          <div class="text-xs sm:text-sm font-medium text-secondary">
+            Assistant ID
+          </div>
+          <span class="text-sm sm:text-base">
+            {{ callReport()?.assistantId }}
+          </span>
         </div>
-        <div class="d-flex flex-column gap-1 col-md-6">
-          <div>Call ID</div>
-          <span> {{ callReport()?.id }} </span>
+        <div class="flex flex-col gap-1 flex-1">
+          <div class="text-xs sm:text-sm font-medium text-secondary">
+            Call ID
+          </div>
+          <span class="text-sm sm:text-base"> {{ callReport()?.id }} </span>
         </div>
       </div>
-      <div class="d-flex align-items-center justify-content-between row">
-        <div class="d-flex flex-column gap-1 col-md-6">
-          <div>Duration</div>
-          <span> {{ getCallDuration() }} </span>
+      <div
+        class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4"
+      >
+        <div class="flex flex-col gap-1 flex-1">
+          <div class="text-xs sm:text-sm font-medium text-secondary">
+            Duration
+          </div>
+          <span class="text-sm sm:text-base"> {{ getCallDuration() }} </span>
         </div>
-        <div class="d-flex flex-column gap-1 col-md-6">
-          <div>Cost</div>
-          <span> {{ callReport()?.cost }} </span>
+        <div class="flex flex-col gap-1 flex-1">
+          <div class="text-xs sm:text-sm font-medium text-secondary">Cost</div>
+          <span class="text-sm sm:text-base"> {{ callReport()?.cost }} </span>
         </div>
       </div>
       <div>
@@ -44,30 +60,39 @@
           <p-tabpanels>
             <!-- Conversation Tab -->
             <p-tabpanel value="0">
-              <div class="">
+              <div>
                 <div
-                  class="d-flex justify-content-between align-items-center mb-3"
+                  class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-3 sm:mb-4"
                 >
-                  <h6>Conversation</h6>
+                  <h6 class="text-base sm:text-lg">Conversation</h6>
                   <p-button
                     label="Download Transcript"
                     icon="pi pi-download"
-                    size="small"
+                    [size]="'small'"
                     (onClick)="downloadTranscript()"
                   />
                 </div>
-                <div class="">
+                <div
+                  class="space-y-2 sm:space-y-3 max-h-[60vh] overflow-y-auto"
+                >
                   @for (message of callReport()?.messages; track message.time) {
-                    <div class="mb-3 p-3 border rounded">
-                      <div class="d-flex align-items-start">
-                        <span class="me-3 text-muted small">{{
-                          message.time | date: "MMM dd, yyyy hh:mm:ss a"
-                        }}</span>
-                        <div class="">
-                          <strong class="text-capitalize"
+                    <div class="mb-2 sm:mb-3 p-2 sm:p-3 border rounded">
+                      <div
+                        class="flex flex-col sm:flex-row items-start gap-2 sm:gap-3"
+                      >
+                        <span
+                          class="text-tertiary text-xs sm:text-sm whitespace-nowrap"
+                          >{{
+                            message.time | date: "MMM dd, yyyy hh:mm:ss a"
+                          }}</span
+                        >
+                        <div class="flex-1 min-w-0">
+                          <strong class="capitalize text-sm sm:text-base"
                             >{{ message.role }}:</strong
                           >
-                          <p class="mb-0 mt-1">{{ message.message }}</p>
+                          <p class="mb-0 mt-1 text-sm sm:text-base break-words">
+                            {{ message.message }}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -138,7 +163,7 @@
             <p-tabpanel value="3">
               @if (callReport()?.recordingUrl) {
                 <div class="audio-player mb-3">
-                  <audio controls class="w-100">
+                  <audio controls class="w-full">
                     <source
                       [src]="callReport()?.recordingUrl"
                       type="audio/wav"
@@ -147,7 +172,9 @@
                   </audio>
                 </div>
               } @else {
-                <p class="text-muted">No recording available for this call.</p>
+                <p class="text-tertiary">
+                  No recording available for this call.
+                </p>
               }
             </p-tabpanel>
           </p-tabpanels>

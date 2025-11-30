@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, AfterViewInit } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Drawer } from 'primeng/drawer';
 import { Button } from 'primeng/button';
 import { SidebarItem } from './types/sidebar.model';
@@ -8,10 +8,11 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
   selector: 'app-sidebar',
   imports: [Drawer, Button, RouterLink, RouterLinkActive],
   templateUrl: './sidebar.html',
-  styleUrl: './sidebar.scss',
+  styleUrl: './sidebar.css',
 })
-export class Sidebar implements OnInit, AfterViewInit {
+export class Sidebar {
   protected visible = signal<boolean>(false);
+
   sidebarItems: SidebarItem[] = [
     { label: 'Home', icon: 'pi pi-home', route: '/' },
     { label: 'Assistants', icon: 'pi pi-users', route: '/assistants' },
@@ -19,9 +20,6 @@ export class Sidebar implements OnInit, AfterViewInit {
     { label: 'Call History', icon: 'pi pi-phone', route: '/call-history' },
     { label: 'Profile', icon: 'pi pi-user', route: '/profile' },
   ];
+
   constructor(public router: Router) {}
-
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void {}
 }

@@ -1,16 +1,18 @@
-<div class="d-flex flex-column align-items-center justify-content-center h-100">
-  <div class="d-flex flex-column gap-2 w-25">
+<div
+  class="flex flex-col items-center justify-center h-full px-4 sm:px-6 lg:px-8"
+>
+  <div class="flex flex-col gap-2 w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
     <p-select
-      [options]="assistants()"
+      [options]="assistants() || []"
       [ngModel]="vapiService.selectedAssistant()"
       (ngModelChange)="vapiService.selectedAssistant.set($event)"
       optionLabel="name"
       placeholder="Select Assistant"
-      class="w-100"
+      class="w-full"
       [optionValue]="'assistantId'"
       [optionLabel]="'name'"
     />
-    <app-vapi-call-btn class="w-100"></app-vapi-call-btn>
+    <app-vapi-call-btn class="w-full"></app-vapi-call-btn>
   </div>
 </div>
 

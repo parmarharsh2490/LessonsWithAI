@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { Select, SelectChangeEvent } from 'primeng/select';
 import { IAssistant } from '../model/assistant.model';
-import { toSignal } from '../../../core/base/safe-signal';
 import { DocumentService } from '../../knowledgebase/service/document.service';
 import { IDocument } from '../../knowledgebase/model/document.model';
 import { KnowledgebaseService } from '../../knowledgebase/service/knowledgebase.service';
@@ -28,7 +27,7 @@ export class AssistantKnowledgeBase implements OnInit {
   onAssistantChange = output<IAssistant>();
   assistant = input<IAssistant>();
   tool = signal<IKnowledgeBase | null>(null);
-  documentList = toSignal(this.documentService.getAll());
+  documentList = this.documentService.getAllData();
   remainingDocumentList = computed<IDocument[]>(() => {
     return this.documentList().filter(
       (item: IDocument) =>

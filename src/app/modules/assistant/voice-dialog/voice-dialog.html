@@ -5,52 +5,56 @@
   [visible]="visible()"
   (visibleChange)="visible.set($event)"
   (onHide)="onHide.emit()"
+  [breakpoints]="{ '1199px': '90vw', '575px': '95vw' }"
   [style]="{ width: '50rem' }"
 >
   <div
-    class="d-flex align-items-center justify-content-between py-4 px-2 gap-2"
+    class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between py-3 sm:py-4 px-2 gap-2 sm:gap-2"
   >
-    <div class="w-100">
+    <div class="w-full sm:flex-1">
       <input
         type="search"
         pInputText
         [ngModel]="searchTerm()"
         (ngModelChange)="searchTerm.set($event)"
         placeholder="Search Voice"
+        class="w-full"
       />
     </div>
-    <div class="w-100">
+    <div class="w-full sm:flex-1">
       <p-select
         [appendTo]="'body'"
         [options]="genders()"
         [ngModel]="selectedGender()"
         (ngModelChange)="selectedGender.set($event)"
-        placeholder="Select a City"
+        placeholder="Select Gender"
         class="w-full"
       />
     </div>
-    <div class="w-100">
+    <div class="w-full sm:flex-1">
       <p-select
         [appendTo]="'body'"
         [options]="accents()"
         [ngModel]="selectedAccent()"
         (ngModelChange)="selectedAccent.set($event)"
-        placeholder="Select a City"
+        placeholder="Select Accent"
         class="w-full"
       />
     </div>
-    <div class="w-100">
+    <div class="w-full sm:flex-1">
       <p-select
         [appendTo]="'body'"
         [options]="tones()"
         [ngModel]="selectedTone()"
         (ngModelChange)="selectedTone.set($event)"
-        placeholder="Select a City"
+        placeholder="Select Tone"
         class="w-full"
       />
     </div>
   </div>
-  <div class="grid grid-cols-2 w-100 gap-2">
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 w-full gap-2 sm:gap-3 max-h-[60vh] overflow-y-auto"
+  >
     @for (voice of voices(); track $index) {
       <div
         (click)="selectedVoice.set(voice)"
@@ -58,30 +62,38 @@
           'bg-primary': voice.id === selectedVoice()?.id,
           'bg-dark': voice.id !== selectedVoice()?.id,
         }"
-        class="d-flex align-items-center justify-content-between rounded p-4 col cursor-pointer"
+        class="flex items-center justify-between rounded p-3 sm:p-4 cursor-pointer"
       >
-        <div class="d-flex flex-column gap-2">
-          <div class="d-flex gap-2">
-            <h5 class="fw-bold h5">{{ voice.name }}</h5>
-            <span class="text-secondary"> {{ voice.accent }}</span>
+        <div class="flex flex-col gap-1 sm:gap-2 flex-1 min-w-0">
+          <div class="flex flex-wrap gap-1 sm:gap-2 items-center">
+            <h5 class="font-bold text-base sm:text-lg truncate">
+              {{ voice.name }}
+            </h5>
+            <span class="text-secondary text-xs sm:text-sm">
+              {{ voice.accent }}</span
+            >
           </div>
-          <div class="d-flex gap-2">
-            <span class="text-secondary"> {{ voice.tone }} </span>
-            <span class="text-secondary"> {{ voice.gender }} </span>
+          <div class="flex flex-wrap gap-1 sm:gap-2">
+            <span class="text-secondary text-xs sm:text-sm">
+              {{ voice.tone }}
+            </span>
+            <span class="text-secondary text-xs sm:text-sm">
+              {{ voice.gender }}
+            </span>
           </div>
         </div>
-        <div>
+        <div class="flex-shrink-0 ml-2">
           <i
             [class]="{ 'text-white': voice.id === selectedVoice()?.id }"
-            class="pi pi-play text-primary cursor-pointer fw-bold fs-3"
+            class="pi pi-play text-primary cursor-pointer font-bold text-lg sm:text-xl"
           ></i>
         </div>
       </div>
     }
   </div>
 
-  <div class="row mt-2">
-    <div class="col-md-12 d-flex justify-content-end">
+  <div class="mt-2">
+    <div class="flex justify-end">
       <p-button [label]="'Submit'" (click)="submit()"></p-button>
     </div>
   </div>

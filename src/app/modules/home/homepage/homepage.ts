@@ -5,9 +5,9 @@ import { VapiCallBtn } from '../../vapi/vapi-call-btn/vapi-call-btn';
 import { FormsModule } from '@angular/forms';
 import { SEOService } from '../../../services/seo.service';
 import { VapiService } from '../../vapi/service/vapi.service';
-import { toSignal } from '../../../core/base/safe-signal';
-import { IAssistant } from '../../assistant/model/assistant.model';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { VapiChatBtn } from '../../vapi/vapi-chat-btn/vapi-chat-btn';
+import { toDataList } from '../../../core/base/signal-wrapper';
 @Component({
   imports: [VapiCallBtn, Select, FormsModule, VapiChatBtn],
   templateUrl: './homepage.html',
@@ -15,7 +15,7 @@ import { VapiChatBtn } from '../../vapi/vapi-chat-btn/vapi-chat-btn';
 })
 export class Homepage implements OnInit {
   private assistantService = inject(AssistantService);
-  assistants = toSignal<IAssistant>(this.assistantService.getAll());
+  assistants = toSignal(toDataList(this.assistantService.getAll()));
 
   constructor(
     private seoService: SEOService,

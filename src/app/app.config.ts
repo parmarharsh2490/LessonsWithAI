@@ -40,6 +40,9 @@ export const appConfig: ApplicationConfig = {
     providePrimeNG({
       theme: {
         preset: MyPreset,
+        options: {
+          darkModeSelector: '@media (prefers-color-scheme: dark)',
+        },
       },
     }),
     provideHttpClient(

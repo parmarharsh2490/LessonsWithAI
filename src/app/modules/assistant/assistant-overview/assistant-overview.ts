@@ -1,10 +1,10 @@
 import {
   Component,
   createComponent,
-  inject,
   input,
   OnInit,
   output,
+  signal,
 } from '@angular/core';
 import { LazyLoadComponentService } from '../../../services/lazy load/lazyload-component.service';
 import { VoiceDialog } from '../voice-dialog/voice-dialog';
@@ -19,8 +19,6 @@ import { Input } from '../../../components/ui/input/input';
 import { Select, SelectChangeEvent } from 'primeng/select';
 import { IModel } from '../model/model.model';
 import { IAssistant } from '../model/assistant.model';
-import { CommonList } from '../../../core/common-list/common-list';
-import { toSignal } from '../../../core/base/safe-signal';
 import { Message } from 'primeng/message';
 
 @Component({
@@ -32,9 +30,8 @@ import { Message } from 'primeng/message';
 })
 export class AssistantOverview implements OnInit {
   assistant = input<IAssistant | undefined>(undefined);
-  private commonList = inject(CommonList);
   onAssistantChange = output<IAssistant>();
-  modelList = toSignal<IModel>(this.commonList.getModels());
+  modelList = signal<IModel[]>([]);
   formData = new FormGroup({
     name: new FormControl('', [
       Validators.required,

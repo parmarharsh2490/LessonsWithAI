@@ -1,9 +1,11 @@
-<div [formGroup]="formData()" class="d-flex flex-column gap-2">
-  <label for="name">{{ label() }}</label>
+<div [formGroup]="formData()" class="flex flex-col gap-2">
+  <label for="name" class="text-sm sm:text-base font-medium">{{
+    label()
+  }}</label>
   <input
     [type]="type()"
     pInputText
-    class="w-100"
+    class="w-full text-sm sm:text-base"
     [placeholder]="placeholder()"
     [formControlName]="key()"
   />

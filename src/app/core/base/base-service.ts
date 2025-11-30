@@ -1,7 +1,13 @@
 import { HttpClient, HttpContext } from '@angular/common/http';
-import { inject } from '@angular/core';
+import {
+  inject,
+  Injector,
+  runInInjectionContext,
+  Signal,
+  signal,
+} from '@angular/core';
 import { IBaseService } from './base-service.model';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of, shareReplay } from 'rxjs';
 import { IResponseData } from '../response/response-data';
 import { environment } from '../../../environment/environment';
 import {
@@ -10,10 +16,12 @@ import {
   MODULE_NAME_TOKEN,
 } from '../interceptor/http-context';
 import { CachingService } from '../services/caching.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 export class BaseService<T> implements IBaseService<T> {
   public http = inject(HttpClient);
   public cacheService = inject(CachingService);
+  private injector = inject(Injector);
   getModuleName(): string {
     return '';
   }
@@ -70,5 +78,37 @@ export class BaseService<T> implements IBaseService<T> {
         .set(MODULE_NAME_TOKEN, this.getModuleName())
         .set(MODULE_ID_TOKEN, id.toString()),
     });
+  }
+
+  getAllData(): Signal<T[]> {
+    if (typeof window === 'undefined') return signal([]);
+    return runInInjectionContext(this.injector, () =>
+      toSignal(
+        this.getAll().pipe(
+          map((data) => data.dataList),
+          catchError(() => of([])),
+          shareReplay(1),
+        ),
+        {
+          initialValue: [] as T[],
+        },
+      ),
+    );
+  }
+
+  getByIdData(id: string): Signal<T | null> {
+    if (typeof window === 'undefined') return signal(null as T);
+    return runInInjectionContext(this.injector, () =>
+      toSignal(
+        this.getById(id).pipe(
+          map((data) => data.data),
+          catchError(() => of(null as T)),
+          shareReplay(1),
+        ),
+        {
+          initialValue: null as T,
+        },
+      ),
+    );
   }
 }

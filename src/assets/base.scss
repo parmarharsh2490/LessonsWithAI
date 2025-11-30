@@ -1,0 +1,44 @@
+@use "tailwindcss";
+@import "primeicons/primeicons.css";
+// Primary color values - synced with src/assets/theme/preset.config.ts
+:root {
+  --color-primary-50: #faf5ff;
+  --color-primary-100: #f3e8ff;
+  --color-primary-200: #e9d5ff;
+  --color-primary-300: #d8b4fe;
+  --color-primary-400: #c084fc;
+  --color-primary-500: #a855f7;
+  --color-primary-600: #9333ea;
+  --color-primary-700: #7e22ce;
+  --color-primary-800: #6b21a8;
+  --color-primary-900: #581c87;
+  --color-primary-950: #3b0764;
+
+  --color-primary: var(--color-primary-500);
+  --color-primary-text: #ffffff;
+  --color-primary-text-muted: rgba(255, 255, 255, 0.7);
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: var(--p-content-background) !important;
+}
+
+@theme {
+  --color-primary-50: #faf5ff;
+  --color-primary-100: #f3e8ff;
+  --color-primary-200: #e9d5ff;
+  --color-primary-300: #d8b4fe;
+  --color-primary-400: #c084fc;
+  --color-primary-500: #a855f7;
+  --color-primary-600: #9333ea;
+  --color-primary-700: #7e22ce;
+  --color-primary-800: #6b21a8;
+  --color-primary-900: #581c87;
+  --color-primary-950: #3b0764;
+
+  --color-primary: var(--color-primary-500);
+  --color-primary-text: #ffffff;
+  --color-primary-text-muted: rgba(255, 255, 255, 0.7);
+}
